@@ -1,0 +1,100 @@
+﻿.contenedor-registro {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 150px, auto;
+    background-image: url(imagenes/login/trama_Login.png);
+    background-repeat: repeat;
+    background-color: var(--primary-dark);
+}
+
+::deep form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 350px;
+    max-height: 500px;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    margin: 1rem;
+}
+
+::deep form h1 {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.6rem;
+}
+
+::deep form a {
+    transition: color 500ms ease;
+    font-weight: bold;
+}
+
+::deep form a:hover {
+    color: var(--primary-color);
+}
+
+::deep form .input-field .form-input {
+    background: #eee;
+}
+
+::deep form .input-field label {
+    color: #bcbcbc;
+}
+
+div:has(> button) {
+    width: 9rem;
+    margin: auto;
+}
+
+.radio-wrapper {
+    display: flex;
+    gap: 1rem;
+}
+
+
+::deep input[type="radio"] {
+    display: none;
+}
+
+.radio-label {
+    padding: .5rem;
+    background: #eee;
+    border-radius: 5px;
+    position: relative;
+    padding-right: 2rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.radio-label::after {
+    content: "";
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: .5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    outline: 1px solid #ffffff;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: white;
+    transition: background 200ms ease-in-out;
+}
+
+::deep input[type="radio"]:checked + label::after {
+    background: var(--secondary-color);
+}
+
+.dual {
+    flex-wrap: wrap
+}
+
+.dual ::deep .text-input {
+    width: 0;
+    flex-grow: 1;
+}

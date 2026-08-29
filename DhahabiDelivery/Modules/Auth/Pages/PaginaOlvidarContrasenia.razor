@@ -1,0 +1,17 @@
+﻿@using DhahabiDelivery.Modules.Auth.Services
+@using DhahabiDelivery.Shared.Resources
+@using Microsoft.Extensions.Localization
+@attribute [Route(Pages.OlvidarContrasenia)]
+@attribute [Route(Pages.OlvidarContraseniaEmail)]
+@inject NavigationManager Nm
+@inject AuthService AuthService
+@inject IStringLocalizer<Idioma> Language
+
+<section class="size-full flex p-4 bg-background items-center justify-center">
+    <EditForm class="flex flex-col max-w-[350px] gap-2 justify-center" FormName="forgot-password" Model="@Model" OnValidSubmit="OnValidSubmit">
+        <h1 class="text-center font-bold text-xl">Recuperar Contraseña</h1>
+        <h3 class="text-sm mb-4 text-center text-gray-400">Introduce tu direccion de correo para recuperar tu contraseña</h3>
+        <TextInput Placeholder="@Language[Idioma.CorreoElectronico]" @bind-Value="@Model!.Email" ValidationFor="@(() => Model!.Email)"/>
+        <button class="bg-primary text-white mt-2 cursor-pointer px-5 font-bold pb-3 pt-2 rounded-full w-full">@Language[Idioma.EnviarEmail]</button>
+    </EditForm>
+</section>

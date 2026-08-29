@@ -1,0 +1,37 @@
+@inherits ViewModelComponent<DhahabiDelivery.Modules.Layout.MainViewModel>
+
+<span class="price-container">
+    <span
+        class="price-value">@Price.GetPrice(Moneda != null ? ViewModel.TasaCambioResumen.FirstOrDefault(t => t.Codigo == Moneda) : ViewModel.TasaCambioResumenSeleccionada)</span>
+
+    @if (ShowCurrency)
+    {
+        <span class="currency-code">
+            @(Moneda != null ? ViewModel.TasaCambioResumen.FirstOrDefault(t => t.Codigo == Moneda)?.Codigo : ViewModel.TasaCambioResumenSeleccionada?.Codigo)
+        </span>
+    }
+</span>
+
+<style>
+    .price-container {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 0.25rem;
+    }
+
+    .price-value {
+        font-weight: 600;
+    }
+
+    .currency-code {
+        font-size: 0.85em;
+        opacity: 0.8;
+        font-weight: 500;
+    }
+</style>
+
+@code {
+    [Parameter] public required decimal Price { get; set; }
+    [Parameter] public string? Moneda { get; set; }
+    [Parameter] public bool ShowCurrency { get; set; } = true;
+}

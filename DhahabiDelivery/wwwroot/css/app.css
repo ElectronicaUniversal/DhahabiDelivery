@@ -1,0 +1,565 @@
+@import "tailwindcss";
+
+:root {
+    --background: #f4f4f4;
+    --text: #130a37;
+    --surface: #f1f1f1;
+    --primary: #8A5CF5;
+    --primary-light: rgba(138, 92, 245, 0.1);
+    --card-background: white;
+    --accent: #ff6467;
+    --divider: #e5e5e5;
+    --color-primary-rgb: 138, 92, 245;
+
+    --teal: #65D8D0;
+    --almond: #E5D2BE;
+    --medium-state-blue: #8A5CF5;
+
+    --bg-color: #ffffff;
+    --main-font: 2.2rem;
+    --p-font: 1.1rem;
+    --soft-bg: #f1f1f1;
+    --hover-color: #d3d3d33b;
+
+    --primary-color: var(--medium-state-blue);
+    --secondary-color: var(--teal);
+    --terciary-color: var(--almond);
+    --primary-light: #8a5cf529;
+    --primary-dark: #5d3ea5;
+
+    --divider-color: #cbcbcb;
+    --card-bg-color: #f0f2f5;
+    --header-height: 70px;
+    --bottom-bar-height: 60px;
+    --anuncios-modal-bg: #707070;
+
+    /*skeleton variables*/
+    --skeleton-color: lightgray;
+    --skeleton-background-gradient: linear-gradient(90deg, transparent, #ffffff80, transparent);
+    --skeleton-animation-direction: normal;
+    --skeleton-animation-duration: 1.5s;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #181818;
+        --text: #e0e0e0;
+        --card-background: #1f1f23;
+        --surface: #292929;
+        --primary: #9f7af7;
+        --primary-dark: #a383f8;
+        --primary-light: rgba(159, 122, 247, 0.15);
+        --accent: #ff6467;
+        --divider: #303030;
+        --color-primary-rgb: 159, 122, 247;
+    }
+}
+
+
+@theme {
+    --color-background: var(--background);
+    --color-text: var(--text);
+    --color-card-background: var(--card-background);
+    --color-surface: var(--surface);
+    --color-primary: var(--primary);
+    --color-hover: var(--hover-color);
+    --color-primary-dark: var(--primary-dark);
+    --color-primary-light: var(--primary-light);
+    --color-secondary: var(--teal);
+    --color-accent: var(--accent);
+    --color-divider: var(--divider);
+    --color-primary-rgb: var(--color-primary-rgb);
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+}
+
+
+html, body {
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+body, html, #app {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.-shadow-y-md {
+    box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1), 0 -2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.content {
+    padding-top: 1.1rem;
+}
+
+h1:focus {
+    outline: none;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid #e50000;
+}
+
+.validation-message {
+    color: #e50000;
+}
+
+/* Estilos base del error UI optimizado para móviles */
+#blazor-error-ui {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Cuando el error UI se muestra (tiene display:block) */
+#blazor-error-ui:not([style*="display: none"]) {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Capa de fondo desenfocada */
+.error-backdrop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+#blazor-error-ui:not([style*="display: none"]) .error-backdrop {
+    opacity: 1;
+}
+
+/* Contenedor centrado */
+.error-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+/* Tarjeta de error */
+.error-card {
+    position: relative;
+    width: 100%;
+    max-width: 330px;
+    background: var(--card-background);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--divider);
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+#blazor-error-ui:not([style*="display: none"]) .error-card {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+    .error-card {
+        background: linear-gradient(to bottom right, var(--card-background), #141418);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Decoración superior */
+.error-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, var(--accent), var(--primary), var(--teal));
+}
+
+/* Contenido principal */
+.error-content {
+    padding: 16px;
+    padding-top: 24px;
+}
+
+/* Cabecera con icono y título */
+.error-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14px;
+}
+
+.error-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    margin-right: 14px;
+    background-color: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.error-icon svg {
+    width: 22px;
+    height: 22px;
+    color: var(--primary);
+}
+
+.error-title {
+    flex-grow: 1;
+}
+
+.error-title h2 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.error-title p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text);
+    opacity: 0.7;
+}
+
+/* Mensaje de error con sugerencias */
+.error-message {
+    background-color: var(--primary-light);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 14px;
+    border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+}
+
+.error-message p {
+    margin: 0 0 6px 0;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.error-message ul {
+    margin: 0;
+    padding-left: 16px;
+}
+
+.error-message li {
+    font-size: 12px;
+    color: var(--text);
+    opacity: 0.8;
+    margin-bottom: 3px;
+}
+
+/* Contenedor de botones */
+.error-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Estilos de botones */
+.error-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.error-button svg {
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+}
+
+.primary-button {
+    background-color: var(--primary);
+    color: white;
+}
+
+.primary-button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.secondary-button {
+    background-color: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--divider);
+}
+
+.secondary-button:hover {
+    background-color: var(--divider);
+    transform: translateY(-2px);
+}
+
+/* Botón de cerrar reposicionado */
+.error-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    color: var(--text);
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 2;
+    padding: 0;
+}
+
+.error-close:hover {
+    transform: rotate(90deg);
+    opacity: 1;
+    background-color: var(--primary-light);
+}
+
+.error-close svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Efecto pulsante suave para el ícono de advertencia */
+@keyframes pulse-soft {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Mejoras para pantallas más grandes */
+@media (min-width: 640px) {
+    .error-card {
+        max-width: 360px;
+    }
+    
+    .error-content {
+        padding: 20px;
+    }
+    
+    .error-actions {
+        flex-direction: row;
+    }
+    
+    .error-title h2 {
+        font-size: 16px;
+    }
+    
+    .error-button {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+}
+
+.blazor-error-boundary {
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0IHg9IjIzNSIgeT0iNTEiIHdpZHRoPSI1NiIgaGVpZ2h0PSI0OSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzUgLTUxKSI+PHBhdGggZD0iTTI2My41MDYgNTFDMjY0LjcxNyA1MSAyNjUuODEzIDUxLjQ4MzcgMjY2LjYwNiA1Mi4yNjU4TDI2Ny4wNTIgNTIuNzk4NyAyNjcuNTM5IDUzLjYyODMgMjkwLjE4NSA5Mi4xODMxIDI5MC41NDUgOTIuNzk1IDI5MC42NTYgOTIuOTk2QzI5MC44NzcgOTMuNTEzIDI5MSA5NC4wODE1IDI5MSA5NC42NzgyIDI5MSA5Ny4wNjUxIDI4OS4wMzggOTkgMjg2LjYxNyA5OUwyNDAuMzgzIDk5QzIzNy45NjMgOTkgMjM2IDk3LjA2NTEgMjM2IDk0LjY3ODIgMjM2IDk0LjM3OTkgMjM2LjAzMSA5NC4wODg2IDIzNi4wODkgOTMuODA3MkwyMzYuMzM4IDkzLjAxNjIgMjM2Ljg1OCA5Mi4xMzE0IDI1OS40NzMgNTMuNjI5NCAyNTkuOTYxIDUyLjc5ODUgMjYwLjQwNyA1Mi4yNjU4QzI2MS4yIDUxLjQ4MzcgMjYyLjI5NiA1MSAyNjMuNTA2IDUxWk0yNjMuNTg2IDY2LjAxODNDMjYwLjczNyA2Ni4wMTgzIDI1OS4zMTMgNjcuMTI0NSAyNTkuMzEzIDY5LjMzNyAyNTkuMzEzIDY5LjYxMDIgMjU5LjMzMiA2OS44NjA4IDI1OS4zNzEgNzAuMDg4N0wyNjEuNzk1IDg0LjAxNjEgMjY1LjM4IDg0LjAxNjEgMjY3LjgyMSA2OS43NDc1QzI2Ny44NiA2OS43MzA5IDI2Ny44NzkgNjkuNTg3NyAyNjcuODc5IDY5LjMxNzkgMjY3Ljg3OSA2Ny4xMTgyIDI2Ni40NDggNjYuMDE4MyAyNjMuNTg2IDY2LjAxODNaTTI2My41NzYgODYuMDU0N0MyNjEuMDQ5IDg2LjA1NDcgMjU5Ljc4NiA4Ny4zMDA1IDI1OS43ODYgODkuNzkyMSAyNTkuNzg2IDkyLjI4MzcgMjYxLjA0OSA5My41Mjk1IDI2My41NzYgOTMuNTI5NSAyNjYuMTE2IDkzLjUyOTUgMjY3LjM4NyA5Mi4yODM3IDI2Ny4zODcgODkuNzkyMSAyNjcuMzg3IDg3LjMwMDUgMjY2LjExNiA4Ni4wNTQ3IDI2My41NzYgODYuMDU0N1oiIGZpbGw9IiNGRkU1MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=) no-repeat 1rem/1.8rem, #b32121;
+    padding: 1rem 1rem 1rem 3.7rem;
+    color: white;
+}
+
+.blazor-error-boundary::after {
+    content: "An error has occurred."
+}
+
+.status-bar-safe-area {
+    display: flex;
+    position: sticky;
+    top: 0;
+    height: env(safe-area-inset-top);
+    background-color: red;
+    width: 100%;
+    z-index: 1;
+}
+
+
+@supports (-webkit-touch-callout: none) {
+    .status-bar-safe-area {
+        display: flex;
+        position: sticky;
+        top: 0;
+        height: env(safe-area-inset-top);
+        background-color: #f7f7f7;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .flex-column, .navbar-brand {
+        padding-left: env(safe-area-inset-left);
+    }
+}
+
+/* Animaciones para modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-fadeOut {
+    animation: fadeOut 0.3s ease-out forwards;
+}
+
+.animate-slideUp {
+    animation: slideUp 0.3s ease-out forwards;
+}
+
+.animate-slideDown {
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+/* Animaciones para entregas items */
+.entrega-item {
+    animation: fadeSlideIn 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.entrega-delay-0 { animation-delay: 0ms; }
+.entrega-delay-1 { animation-delay: 50ms; }
+.entrega-delay-2 { animation-delay: 100ms; }
+.entrega-delay-3 { animation-delay: 150ms; }
+.entrega-delay-4 { animation-delay: 200ms; }
+.entrega-delay-5 { animation-delay: 250ms; }
+.entrega-delay-6 { animation-delay: 300ms; }
+.entrega-delay-7 { animation-delay: 350ms; }
+.entrega-delay-8 { animation-delay: 400ms; }
+.entrega-delay-9 { animation-delay: 450ms; }
+
+/* Animaciones para productos */
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-enter {
+    animation: fadeSlideIn 0.4s ease-out;
+    animation-fill-mode: both;
+}
+
+.product-stagger-0 {
+    animation-delay: 0ms;
+}
+
+.product-stagger-1 {
+    animation-delay: 50ms;
+}
+
+.product-stagger-2 {
+    animation-delay: 100ms;
+}
+
+.product-stagger-3 {
+    animation-delay: 150ms;
+}
+
+.product-stagger-4 {
+    animation-delay: 200ms;
+}
+
+.product-stagger-5 {
+    animation-delay: 250ms;
+}
+
+/* Clases para tema oscuro/claro */
+.bg-card-background {
+    background-color: var(--card-background);
+}
+
+.text-text {
+    color: var(--text);
+}
+
+.bg-primary-light {
+    background-color: var(--primary-light);
+}
+
+.border-divider {
+    border-color: var(--divider);
+}
+
+/* Mejoras en elementos interactivos para modo oscuro */
+.dark-mode-hover:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    .dark\:bg-surface {
+        background-color: var(--surface);
+    }
+
+    .dark\:text-text {
+        color: var(--text);
+    }
+
+    .dark\:border-divider {
+        border-color: var(--divider);
+    }
+}

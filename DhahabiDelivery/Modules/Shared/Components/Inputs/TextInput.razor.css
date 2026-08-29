@@ -1,0 +1,97 @@
+.text-input {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+.input-field {
+    position: relative;
+    width: 100%;
+    font-size: clamp(13px, 0.8rem, 15px);
+}
+
+.input-field ::deep .form-input {
+    box-sizing: border-box;
+    height: 3rem;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    padding: 16px 15px 0;
+}
+
+.input-field ::deep .form-input:focus {
+    border: 1px solid white;
+}
+
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: white;
+    pointer-events: none;
+    transition: 0.2s ease;
+    color: gray;
+}
+
+.input-field ::deep input[type="password"]::-ms-reveal {
+    display: none;
+}
+
+
+.input-field ::deep .form-input:is(:focus, [full]) ~ .password-toggle {
+    opacity: 1;
+}
+
+.input-field .password-toggle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
+    display: flex;
+    user-select: none;
+    opacity: 0;
+    padding: 5px;
+    transition: opacity 300ms ease-in-out;
+}
+
+.input-field ::deep [full].invalid {
+    border: 1px solid red;
+}
+
+
+.input-field ::deep .form-input:is(:focus, [full]) ~ label {
+    transform: translateY(-120%);
+    font-size: 0.75rem;
+}
+
+.form-control-validation:has(.validation-message) ~ .input-field ::deep input {
+    border: 1px solid red;
+}
+
+.form-control-validation ::deep .validation-message {
+    font-size: 12px;
+    padding: 2px;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-duration: 550ms;
+    animation-name: appear-error-animation;
+}
+
+@keyframes appear-error-animation {
+    0% {
+        opacity: 0;
+        height: 0;
+    }
+    50% {
+        opacity: 0;
+        height: 1rem;
+    }
+
+    100% {
+        opacity: 1;
+        height: 1rem;
+    }
+}

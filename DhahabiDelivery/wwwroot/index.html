@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+          name="viewport"/>
+    <title>DhahabiDelivery</title>
+    <base href="/"/>
+    <link href="css/app.min.css" rel="stylesheet"/>
+    <link href="DhahabiDelivery.styles.css" rel="stylesheet"/>
+    <link href="favicon.png" rel="icon" type="image/png"/>
+</head>
+
+<body>
+
+<div class="status-bar-safe-area"></div>
+
+<div class="size-full flex flex-col items-center justify-center bg-background" id="app">
+    <lottie-player
+            autoplay
+            background="transparent"
+            class="m-auto"
+            loop
+            speed="1"
+            src="/lottie/loading.json" style="height: 150px;">
+    </lottie-player>
+</div>
+
+<div id="blazor-error-ui" class="fixed inset-0 z-[1000] flex items-center justify-center p-4 backdrop-blur-sm bg-black/30 dark:bg-black/50" style="display: none;">
+    <div class="error-backdrop"></div>
+    <div class="error-container">
+        <div class="error-card">
+            <div class="error-decoration"></div>
+            <div class="error-content">
+                <div class="error-header">
+                    <div class="error-icon">
+                        <svg class="w-8 h-8 text-primary dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <div class="error-title">
+                        <h2 class="text-xl font-bold text-text dark:text-text">¡Ups! Ha ocurrido un error</h2>
+                        <p class="text-text/70 dark:text-text/70 mt-1">La aplicación ha encontrado un problema inesperado.</p>
+                    </div>
+                </div>
+                <div class="error-message">
+                    <p class="text-text/90 dark:text-text/90 font-medium">Estamos trabajando para solucionar este problema. Mientras tanto, puedes intentar:</p>
+                    <ul class="mt-2 space-y-1 pl-5 text-text/80 dark:text-text/80 list-disc">
+                        <li>Recargar la página</li>
+                        <li>Comprobar tu conexión a internet</li>
+                        <li>Intentarlo de nuevo más tarde</li>
+                    </ul>
+                </div>
+                <div class="error-actions">
+                    <a href="" class="reload w-full sm:w-auto flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-primary hover:bg-primary-dark dark:bg-primary dark:hover:bg-primary-dark text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-[1.02]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        Recargar página
+                    </a>
+                    <button onclick="window.history.back()" class="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-surface hover:bg-divider dark:bg-surface dark:hover:bg-[#303035] text-text dark:text-text font-medium rounded-lg border border-divider dark:border-[#303030] transition-all duration-300 transform hover:scale-[1.02]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Volver atrás
+                    </button>
+                </div>
+            </div>
+            <button class="dismiss absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-surface hover:bg-divider dark:bg-[#27272a] dark:hover:bg-[#323236] text-text/70 hover:text-text dark:text-text/70 dark:hover:text-text transition-all duration-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script autostart="false" src="_framework/blazor.webview.js"></script>
+<script src="/js/lottie-player.js"></script>
+<script src="_content/BlazorGoogleMaps/js/objectManager.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+dialog {
+    --dialog-animation-duration: 250ms;
+}
+
+dialog {
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--dialog-animation-duration) ease-out;
+}
+
+dialog[open] {
+    pointer-events: initial;
+    opacity: 1;
+}
+
+dialog[open]::backdrop {
+    animation: backdrop-fade-in var(--dialog-animation-duration) ease-out forwards;
+}
+
+@keyframes backdrop-fade-in {
+    0% {
+        background-color: rgb(0 0 0 / 0%);
+    }
+    100% {
+        background-color: rgb(0 0 0 / 25%);
+    }
+}

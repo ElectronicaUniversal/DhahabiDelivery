@@ -1,0 +1,6 @@
+<button class="button-loader @GetButtonClass()" @onclick="OnClick" @attributes="InputAttributes">
+    @if (ButtonState != State.Loading)
+    {
+        @ChildContent
+    }
+</button>

@@ -1,0 +1,125 @@
+@using ZXing.Net.Maui
+@inject NavigationManager NavigationManager
+@attribute [Route(Pages.Scanner)]
+
+<div class="h-full flex flex-col items-center justify-center p-6">
+
+    <!-- Header -->
+    <div class="flex flex-col items-center gap-2 mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-violet-600 dark:text-violet-400"
+             fill="currentColor" viewBox="0 0 16 16">
+            <path
+                d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
+            <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
+            <path d="M7 9H2v5h5zm-4 1h3v3H3zm8-6h1v1h-1z"/>
+            <path
+                d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z"/>
+            <path d="M12 9h2V8h-2z"/>
+        </svg>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Escanea la orden</h1>
+        <p class="text-gray-600 dark:text-gray-300 text-center max-w-sm">
+            Escanea el código QR de la orden de compra del cliente para visualizar los detalles y completarla.
+        </p>
+    </div>
+
+    <!-- Estado de error -->
+    @if (!string.IsNullOrWhiteSpace(_error))
+    {
+        <div
+            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4 w-full max-w-md text-center">
+            <span class="font-semibold">Error:</span> @_error
+        </div>
+    }
+
+    <!-- Botón principal -->
+    <button @onclick="DoScanAsync"
+            disabled="@_isLoading"
+            class="relative inline-flex items-center justify-center px-6 py-3 text-white bg-violet-600 hover:bg-violet-700 focus:ring-4 focus:ring-violet-300 font-medium rounded-2xl shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+        @if (_isLoading)
+        {
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10"
+                        stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            <span>
+            Escaneando...
+            </span>
+        }
+        else
+        {
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 4v1m6.364 1.636l-.707.707M20 12h1m-1.636 6.364l-.707-.707M12 20v1m-6.364-1.636l.707-.707M4 12H3m1.636-6.364l.707.707"/>
+            </svg>
+            <span>
+            Escanear QR
+            </span>
+        }
+    </button>
+
+</div>
+
+@code
+{
+    private bool _isLoading;
+    private string _error = "";
+
+    private async Task DoScanAsync()
+    {
+        _isLoading = true;
+        _error = "";
+        StateHasChanged();
+
+        try
+        {
+            // Check for camera permission first
+            var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
+            if (status != PermissionStatus.Granted)
+            {
+                status = await Permissions.RequestAsync<Permissions.Camera>();
+                if (status != PermissionStatus.Granted)
+                {
+                    _error = "Se requiere permiso de cámara para escanear códigos QR.";
+                    _isLoading = false;
+                    StateHasChanged();
+                    return;
+                }
+            }
+
+            var scanResults = await GetScanResultsAsync();
+            var barcode = scanResults.FirstOrDefault();
+
+            if (barcode != null && !string.IsNullOrWhiteSpace(barcode.Value))
+            {
+                // Navegar a ScannerResult con el valor del código QR escaneado
+                NavigationManager.NavigateTo($"{Pages.ScannerResult}?OrderId={Uri.EscapeDataString(barcode.Value)}");
+            }
+            else
+            {
+                _error = "No se ha obtenido un resultado o el escaneo fue cancelado.";
+                _isLoading = false;
+                StateHasChanged();
+            }
+        }
+        catch (Exception ex)
+        {
+            _error = $"Error al escanear: {ex.Message}";
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private static async Task<BarcodeResult[]> GetScanResultsAsync()
+    {
+        var cameraPage = new CameraPage();
+        var nav = Application.Current?.MainPage?.Navigation;
+        if (nav == null) return [];
+
+        await nav.PushModalAsync(cameraPage);
+        return await cameraPage.WaitForResultAsync();
+    }
+}

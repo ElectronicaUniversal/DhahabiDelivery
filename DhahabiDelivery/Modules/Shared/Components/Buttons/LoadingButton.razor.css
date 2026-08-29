@@ -1,0 +1,62 @@
+.success, .normal, .error {
+    width: 100%;
+}
+
+button {
+    /*    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));*/
+    background: linear-gradient(90deg, var(--primary-color), #b065d8);
+    user-select: none;
+    border-radius: 2rem;
+    transition: all 300ms ease-in-out;
+    outline: none;
+    margin-top: 4px;
+    height: 3rem;
+    color: white;
+    max-height: 40px;
+    max-width: 300px;
+    box-sizing: border-box;
+    border: none;
+    margin-inline: auto;
+}
+
+
+button:not(.loading) {
+    cursor: pointer;
+    padding-inline: 2rem;
+}
+
+.loading {
+    width: 3rem;
+    height: 3rem;
+    animation: spinner-animation 1s infinite linear 320ms, load-animation .5s linear 0ms 1 normal forwards;
+    background: var(--primary-color);
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-right-color: var(--primary-color);
+    max-height: initial;
+}
+
+.error {
+    width: 100%;
+    border: 0;
+    box-shadow: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+@keyframes spinner-animation {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+@keyframes load-animation {
+    to {
+        background: transparent;
+    }
+}
+
+@keyframes load-animation {
+    to {
+        background: transparent;
+    }
+}

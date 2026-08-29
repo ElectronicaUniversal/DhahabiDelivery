@@ -1,0 +1,205 @@
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@using DhahabiDelivery.Modules.Shared.Components.Buttons
+@inherits DhahabiDelivery.Modules.Shared.ViewModelComponent<DhahabiDelivery.Modules.Entregas.ViewModels.EntregasViewModel>
+@attribute [Route(Pages.ScannerResult)]
+
+<div
+    class="h-full flex flex-col items-center justify-center p-6 bg-background transition-all duration-300">
+    <!-- Resultado del escaneo -->
+    <div class="w-full max-w-md">
+        <!-- Icono animado de estado -->
+        <div class="flex flex-col items-center mb-6 transition-all @GetAnimationClass()">
+            @if (_loading)
+            {
+                <div
+                    class="w-20 h-20 rounded-full border-4 border-t-transparent border-violet-600 animate-spin mb-4"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Verificando orden...</h2>
+            }
+            else if (_isMatch && !_processingComplete)
+            {
+                <div
+                    class="w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-green-500" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">¡Orden encontrada!</h2>
+            }
+            else if (_processingComplete)
+            {
+                <div class="w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-blue-500" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">¡Orden completada!</h2>
+            }
+            else
+            {
+                <div class="w-20 h-20 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-red-500" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Orden no encontrada</h2>
+            }
+        </div>
+
+        <!-- Detalles -->
+        <div
+            class="bg-surface rounded-xl shadow-lg p-6 mb-6 transition-all duration-300 @GetContentClass()">
+            @if (_loading)
+            {
+                <p class="text-gray-600 dark:text-gray-300 text-center">Estamos verificando si la orden pertenece a tus
+                    entregas asignadas...</p>
+            }
+            else if (_isMatch && !_processingComplete)
+            {
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-500 dark:text-gray-400">Orden ID:</span>
+                        <span class="font-medium">@OrderId</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-500 dark:text-gray-400">Cliente:</span>
+                        <span class="font-medium">@_matchedOrder?.NombreCliente</span>
+                    </div>
+                    <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+                    <p class="text-center text-gray-700 dark:text-gray-300">
+                        La orden ha sido verificada. Puedes completar la entrega o ver sus detalles.
+                    </p>
+                </div>
+            }
+            else if (_processingComplete)
+            {
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-500 dark:text-gray-400">Orden ID:</span>
+                        <span class="font-medium">@OrderId</span>
+                    </div>
+                    <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+                    <p class="text-center text-gray-700 dark:text-gray-300">
+                        ¡La entrega ha sido marcada como completada exitosamente!
+                    </p>
+                </div>
+            }
+            else
+            {
+                @if (!_isMatch && !_loading)
+                {
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500 dark:text-gray-400">Orden escaneada:</span>
+                            <span class="font-medium">@OrderId</span>
+                        </div>
+                        <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+                        <p class="text-center text-gray-700 dark:text-gray-300">
+                            La orden escaneada no corresponde a ninguna de las entregas asignadas a tu cuenta.
+                        </p>
+                        @if (ViewModel.EntregasAsignadas is { Length: > 0 })
+                        {
+                            <p class="text-center text-gray-500 dark:text-gray-400 text-sm">
+                                Órdenes asignadas: @string.Join(", ", ViewModel.EntregasAsignadas.Select(e => e.Id))
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="text-center text-gray-500 dark:text-gray-400 text-sm">
+                                No tienes órdenes asignadas actualmente.
+                            </p>
+                        }
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="flex flex-col gap-3 transition-all duration-300 @GetContentClass()">
+            @if (_loading)
+            {
+                <div class="h-10 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-xl"></div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-xl"></div>
+            }
+            else if (_isMatch && !_processingComplete)
+            {
+                <LoadingButton ButtonState="_loadingCompletarOrden" OnClick="CompletarOrden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Completar Entrega</span>
+                </LoadingButton>
+                @* <button @onclick="CompletarOrden" *@
+                @*         class="relative inline-flex items-center justify-center px-6 py-3 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-xl shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"> *@
+                @*      *@
+                @* </button> *@
+                <button @onclick="VerDetalles"
+                        class="relative inline-flex items-center justify-center px-6 py-3 text-violet-600 bg-violet-100 hover:bg-violet-200 dark:text-violet-400 dark:bg-violet-900/20 dark:hover:bg-violet-900/30 focus:ring-4 focus:ring-violet-300 font-medium rounded-xl shadow transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    <span>Ver Detalles</span>
+                </button>
+            }
+            else
+            {
+                <button @onclick="EscanearNuevamente"
+                        class="relative inline-flex items-center justify-center px-6 py-3 text-white bg-violet-600 hover:bg-violet-700 focus:ring-4 focus:ring-violet-300 font-medium rounded-xl shadow-lg transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+                    </svg>
+                    <span>Escanear Nuevamente</span>
+                </button>
+                @if (_processingComplete)
+                {
+                    <button @onclick="VolverAlInicio"
+                            class="relative inline-flex items-center justify-center px-6 py-3 text-violet-600 bg-violet-100 hover:bg-violet-200 dark:text-violet-400 dark:bg-violet-900/20 dark:hover:bg-violet-900/30 focus:ring-4 focus:ring-violet-300 font-medium rounded-xl shadow transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                        <span>Volver al Inicio</span>
+                    </button>
+                }
+            }
+        </div>
+    </div>
+    @if (_showErrorMessage)
+    {
+        <div
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-all duration-300 animate-fadeIn">
+            <div
+                class="bg-surface dark:bg-surface rounded-xl shadow-xl p-6 m-4 max-w-md w-full transform transition-all duration-300 animate-slideIn">
+                <div class="flex items-center mb-4">
+                    <div
+                        class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Alerta</h2>
+                </div>
+                <p class="text-gray-700 dark:text-gray-300 mb-6">@_errorMessage</p>
+                <div class="flex justify-end">
+                    <button @onclick="@(() => _showErrorMessage = false)"
+                            class="bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-lg transition-all duration-200 flex items-center">
+                        <span>Entendido</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Attach .NET MAUI Android",
+        "type": "coreclr",
+        "request": "attach",
+        "processId": "remote",
+        "pipeTransport": {
+          "pipeCwd": "${workspaceFolder}",
+          "pipeProgram": "bash",
+          "pipeArgs": [
+            "-c",
+            "echo 127.0.0.1 10000"
+          ],
+          "debuggerPath": "/vsdbg/vsdbg" 
+        },
+        "sourceFileMap": {
+          "/": "${workspaceFolder}"
+        }
+      }
+    ]
+  }
+  

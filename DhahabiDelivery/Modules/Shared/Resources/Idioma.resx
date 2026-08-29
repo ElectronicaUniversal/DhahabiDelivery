@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <!-- 
+      Microsoft ResX Schema 
+      
+      Version 2.0
+      
+      The primary goals of this format is to allow a simple XML format 
+      that is mostly human readable. The generation and parsing of the 
+      various data types are done through the TypeConverter classes 
+      associated with the data types.
+      
+      Example:
+      
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+                  
+      There are any number of "resheader" rows that contain simple 
+      name/value pairs.
+      
+      Each data row contains a name, and value. The row also contains a 
+      type or mimetype. Type corresponds to a .NET class that support 
+      text/value conversion through the TypeConverter architecture. 
+      Classes that don't support this are serialized and stored with the 
+      mimetype set.
+      
+      The mimetype is used for serialized objects, and tells the 
+      ResXResourceReader how to depersist the object. This is currently not 
+      extensible. For a given mimetype the value must be set accordingly:
+      
+      Note - application/x-microsoft.net.object.binary.base64 is the format 
+      that the ResXResourceWriter will generate, however the reader can 
+      read any of the formats listed below.
+      
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+      
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+  
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array 
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="Aceptamos" xml:space="preserve">
+      <value>We accept</value>
+    </data>
+    <data name="AgregarAlCarrito" xml:space="preserve">
+      <value>Add to Cart</value>
+    </data>
+    <data name="Apellidos" xml:space="preserve">
+      <value>Last Name(s)</value>
+    </data>
+    <data name="AtencionAlCliente" xml:space="preserve">
+      <value>Customer Service</value>
+    </data>
+    <data name="Ayuda" xml:space="preserve">
+      <value>Help</value>
+    </data>
+    <data name="Bienvenido" xml:space="preserve">
+      <value>Welcome</value>
+    </data>
+    <data name="Buscar" xml:space="preserve">
+      <value>Search</value>
+    </data>
+    <data name="CantidadDeExistencias" xml:space="preserve">
+      <value>Stock quantity</value>
+    </data>
+    <data name="Carrito" xml:space="preserve">
+      <value>Cart</value>
+    </data>
+    <data name="Categorias" xml:space="preserve">
+      <value>Categories</value>
+    </data>
+    <data name="CategoriasPopulares" xml:space="preserve">
+      <value>Popular categories</value>
+    </data>
+    <data name="CentroDeAyuda" xml:space="preserve">
+      <value>Help Center</value>
+    </data>
+    <data name="Cerrar" xml:space="preserve">
+      <value>Close</value>
+    </data>
+    <data name="CertificacionDeSeguridad" xml:space="preserve">
+      <value>Security certification</value>
+    </data>
+    <data name="ComoRastrearUnPedido" xml:space="preserve">
+      <value>How to track an order?</value>
+    </data>
+    <data name="ComoRealizarUnPedido" xml:space="preserve">
+      <value>How to place an order?</value>
+    </data>
+    <data name="Compartir" xml:space="preserve">
+      <value>Share</value>
+    </data>
+    <data name="Comprar" xml:space="preserve">
+      <value>Buy</value>
+    </data>
+    <data name="ComprarAhora" xml:space="preserve">
+      <value>Buy Now</value>
+    </data>
+    <data name="Confirmar" xml:space="preserve">
+      <value>Confirm</value>
+    </data>
+    <data name="Contactanos" xml:space="preserve">
+      <value>Contact us</value>
+    </data>
+    <data name="Contacto" xml:space="preserve">
+      <value>Contact</value>
+    </data>
+    <data name="Contrasenia" xml:space="preserve">
+      <value>Password</value>
+    </data>
+    <data name="ContraseniaMuyGrande" xml:space="preserve">
+      <value>The password is too long</value>
+    </data>
+    <data name="CorreoElectronico" xml:space="preserve">
+      <value>Email</value>
+    </data>
+    <data name="CreaContrasenia" xml:space="preserve">
+      <value>Create a password</value>
+    </data>
+    <data name="CrearUnaCuenta" xml:space="preserve">
+      <value>Create an account</value>
+    </data>
+    <data name="CuponesYCodigosDeDescuento" xml:space="preserve">
+      <value>Coupons and discount codes</value>
+    </data>
+    <data name="DescubreTusGustos" xml:space="preserve">
+      <value>Discover your preferences</value>
+    </data>
+    <data name="DescuentoParaPersonasDeLaTerceraEdad" xml:space="preserve">
+      <value>Senior discount</value>
+    </data>
+    <data name="DescuentoPorCupones" xml:space="preserve">
+      <value>Coupon discount</value>
+    </data>
+    <data name="DescuentoPorOfertas" xml:space="preserve">
+      <value>Offer discount</value>
+    </data>
+    <data name="Direccion" xml:space="preserve">
+      <value>Address</value>
+    </data>
+    <data name="DireccionDeEnvio" xml:space="preserve">
+      <value>Shipping address</value>
+    </data>
+    <data name="ElEmailYaExiste" xml:space="preserve">
+      <value>An account with that email address already exists</value>
+    </data>
+    <data name="Eliminar" xml:space="preserve">
+      <value>Delete</value>
+    </data>
+    <data name="EmailNoConfirmado" xml:space="preserve">
+      <value>Email not confirmed</value>
+    </data>
+    <data name="EnviarEmail" xml:space="preserve">
+      <value>Send email</value>
+    </data>
+    <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+    <data name="ErrorDeConexion" xml:space="preserve">
+      <value>Connection error</value>
+    </data>
+    <data name="ErrorDesconocido" xml:space="preserve">
+      <value>Unknown error</value>
+    </data>
+    <data name="EscogeElMetodoDePago" xml:space="preserve">
+      <value>Choose the payment method</value>
+    </data>
+    <data name="EstasSeguroQueDeseasSalir" xml:space="preserve">
+      <value>Are you sure you want to exit?</value>
+    </data>
+    <data name="Fecha" xml:space="preserve">
+      <value>Date</value>
+    </data>
+    <data name="Filtros" xml:space="preserve">
+      <value>Filters</value>
+    </data>
+    <data name="HacerPedido" xml:space="preserve">
+      <value>Place order</value>
+    </data>
+    <data name="HaOcurridoUnErrorDeConexion" xml:space="preserve">
+      <value>A connection error has occurred</value>
+    </data>
+    <data name="HaOcurridoUnErrorDesconocido" xml:space="preserve">
+      <value>An unknown error has occurred</value>
+    </data>
+    <data name="Hombre" xml:space="preserve">
+      <value>Man</value>
+    </data>
+    <data name="IdDeOrden" xml:space="preserve">
+      <value>Order ID</value>
+    </data>
+    <data name="InformacionDeLaEmpresa" xml:space="preserve">
+      <value>Company information</value>
+    </data>
+    <data name="IntroduceCorreo" xml:space="preserve">
+      <value>Enter your email</value>
+    </data>
+    <data name="ListaDeCompra" xml:space="preserve">
+      <value>Shopping list</value>
+    </data>
+    <data name="Login" xml:space="preserve">
+      <value>Log in</value>
+    </data>
+    <data name="MapaDelSitio" xml:space="preserve">
+      <value>Site map</value>
+    </data>
+    <data name="MetodosDePagoDisponibles" xml:space="preserve">
+      <value>Available payment methods</value>
+    </data>
+    <data name="Mujer" xml:space="preserve">
+      <value>Woman</value>
+    </data>
+    <data name="Idioma.fr" xml:space="preserve">
+      <value>Name</value>
+    </data>
+    <data name="NombreAplicacion" xml:space="preserve">
+      <value>Online Store</value>
+    </data>
+    <data name="NombreUsario" xml:space="preserve">
+      <value>Username</value>
+    </data>
+    <data name="NoTienesUnaCuenta" xml:space="preserve">
+      <value>Don’t have an account?</value>
+    </data>
+    <data name="Notificaciones" xml:space="preserve">
+      <value>Notifications</value>
+    </data>
+    <data name="Nuevo" xml:space="preserve">
+      <value>New!</value>
+    </data>
+    <data name="NumeroDeTelefono" xml:space="preserve">
+      <value>Phone number</value>
+    </data>
+    <data name="OfertasEspeciales" xml:space="preserve">
+      <value>Special offers</value>
+    </data>
+    <data name="OfertasSemanales" xml:space="preserve">
+      <value>Weekly offers</value>
+    </data>
+    <data name="OlvidasteTuContrasenia" xml:space="preserve">
+      <value>Forgot your password?</value>
+    </data>
+    <data name="ParaCompletarElCambioContrasenia" xml:space="preserve">
+      <value>to complete the password change</value>
+    </data>
+    <data name="ParaCompletarElInicioDeSesion" xml:space="preserve">
+      <value>to complete the login</value>
+    </data>
+    <data name="ParaCompletarElRegistro" xml:space="preserve">
+      <value>to complete the account registration process</value>
+    </data>
+    <data name="PoliticaDeDevolucionYReembolso" xml:space="preserve">
+      <value>Return and refund policy</value>
+    </data>
+    <data name="PoliticaDeEnvios" xml:space="preserve">
+      <value>Shipping policy</value>
+    </data>
+    <data name="PoliticaDePropiedadIntelectual" xml:space="preserve">
+      <value>Intellectual property policy</value>
+    </data>
+    <data name="PorfavorCreaUnaCuenta" xml:space="preserve">
+      <value>To join our community, please register with your personal information</value>
+    </data>
+    <data name="PorfavorIniciaSession" xml:space="preserve">
+      <value>Please log in with your personal information to stay connected with us</value>
+    </data>
+    <data name="Precio" xml:space="preserve">
+      <value>Price</value>
+    </data>
+    <data name="PrecioOriginal" xml:space="preserve">
+      <value>Original price</value>
+    </data>
+    <data name="Privacidad" xml:space="preserve">
+      <value>Privacy</value>
+    </data>
+    <data name="ProcesandoSuCompra" xml:space="preserve">
+      <value>Processing your purchase …</value>
+    </data>
+    <data name="Productos" xml:space="preserve">
+      <value>Products</value>
+    </data>
+    <data name="ProductosPopulares" xml:space="preserve">
+      <value>Popular products</value>
+    </data>
+    <data name="ProductosSimilares" xml:space="preserve">
+      <value>Similar products</value>
+    </data>
+    <data name="ProteccionDeCompras" xml:space="preserve">
+      <value>Purchase protection</value>
+    </data>
+    <data name="PuntosGanados" xml:space="preserve">
+      <value>Points earned</value>
+    </data>
+    <data name="Recargar" xml:space="preserve">
+      <value>Reload</value>
+    </data>
+    <data name="Recomendados" xml:space="preserve">
+      <value>Recommended</value>
+    </data>
+    <data name="ReenviarEmail" xml:space="preserve">
+      <value>Resend email</value>
+    </data>
+    <data name="Registrarse" xml:space="preserve">
+      <value>Sign up</value>
+    </data>
+    <data name="RepetirContrasenia" xml:space="preserve">
+      <value>Repeat Password</value>
+    </data>
+    <data name="ReportarActividadSospechosa" xml:space="preserve">
+      <value>Report suspicious activity</value>
+    </data>
+    <data name="ResumenDelPedido" xml:space="preserve">
+      <value>Order summary</value>
+    </data>
+    <data name="Salir" xml:space="preserve">
+      <value>Exit</value>
+    </data>
+    <data name="SeAhorra" xml:space="preserve">
+      <value>You save</value>
+    </data>
+    <data name="SiguenosEnRedesSociales" xml:space="preserve">
+      <value>Follow us on social media</value>
+    </data>
+    <data name="Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+    <data name="SuCompraHaSidoCompletada" xml:space="preserve">
+      <value>Your purchase has been completed!</value>
+    </data>
+    <data name="SuEmailNoHaSidoConfirmado" xml:space="preserve">
+      <value>Your email has not been confirmed</value>
+    </data>
+    <data name="TeEnviamosUnEmailA" xml:space="preserve">
+      <value>We sent an email to</value>
+    </data>
+    <data name="TeEnviaremosUnEmailA" xml:space="preserve">
+      <value>We will send an email to</value>
+    </data>
+    <data name="TerminosDeUso" xml:space="preserve">
+      <value>Terms of use</value>
+    </data>
+    <data name="TerminosYCondiciones" xml:space="preserve">
+      <value>Terms and conditions</value>
+    </data>
+    <data name="Tienda" xml:space="preserve">
+      <value>Store</value>
+    </data>
+    <data name="Todos" xml:space="preserve">
+      <value>All</value>
+    </data>
+    <data name="TokenIncorrecto" xml:space="preserve">
+      <value>Incorrect token</value>
+    </data>
+    <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+    <data name="TusRetirosYAlertasDeSeguridad" xml:space="preserve">
+      <value>Your withdrawals and security alerts</value>
+    </data>
+    <data name="Usuario" xml:space="preserve">
+      <value>User</value>
+    </data>
+    <data name="UsuarioOContraseniaIncorrectos" xml:space="preserve">
+      <value>Incorrect username or password</value>
+    </data>
+    <data name="Valoracion" xml:space="preserve">
+      <value>Rating</value>
+    </data>
+    <data name="VerificaTuCorreoelectronico" xml:space="preserve">
+      <value>Verify your email</value>
+    </data>
+    <data name="VerMas" xml:space="preserve">
+      <value>See more</value>
+    </data>
+    <data name="YaTienesUnaCuenta" xml:space="preserve">
+      <value>Already have an account?</value>
+    </data>
+    <data name="Pedidos" xml:space="preserve">
+      <value>Orders</value>
+    </data>
+    <data name="TusPedidos" xml:space="preserve">
+      <value>Your orders</value>
+    </data>
+    <data name="Perfil" xml:space="preserve">
+      <value>Profile</value>
+    </data>
+    <data name="Direcciones" xml:space="preserve">
+      <value>Directions</value>
+    </data>
+    <data name="Idiomas" xml:space="preserve">
+      <value>Language</value>
+    </data>
+    <data name="AcercaDe" xml:space="preserve">
+      <value/>
+    </data>
+    <data name="Cancelar" xml:space="preserve">
+      <value>Cancel</value>
+    </data>
+    <data name="VerDetalles" xml:space="preserve">
+      <value>See details</value>
+    </data>
+    <data name="Estado" xml:space="preserve">
+      <value>State</value>
+    </data>
+    <data name="Aplicar" xml:space="preserve">
+      <value>Apply</value>
+    </data>
+    <data name="EliminarCuenta" xml:space="preserve">
+      <value>Delete account</value>
+    </data>
+    <data name="CambiarContrasenia" xml:space="preserve">
+      <value>Change password</value>
+    </data>
+    <data name="Token" xml:space="preserve">
+      <value>Token</value>
+    </data>
+    <data name="CambiarContraseniaMensaje" xml:space="preserve">
+      <value/>
+    </data>
+    <data name="PuntosYCredito" xml:space="preserve">
+      <value>Points and credit</value>
+    </data>
+    <data name="ComoFunciona" xml:space="preserve">
+      <value/>
+    </data>
+    <data name="ComoFunciona1" xml:space="preserve">
+      <value/>
+    </data>
+    <data name="ComoFunciona2" xml:space="preserve">
+      <value/>
+    </data>
+    <data name="ListaVacia" xml:space="preserve">
+      <value>Empty list</value>
+    </data>
+    <data name="DireccionTienda" xml:space="preserve">
+      <value>Store Address</value>
+    </data>
+    <data name="ServicioADomicilio" xml:space="preserve">
+      <value/>
+    </data>
+    <data name="RecogerEnTienda" xml:space="preserve">
+      <value/>
+    </data>
+    <data name="DireccionDeRecogidaMasCercana" xml:space="preserve">
+      <value/>
+    </data>
+    <data name="Pais" xml:space="preserve">
+      <value>Country</value>
+    </data>
+    <data name="Nombre" xml:space="preserve">
+      <value>Name</value>
+    </data>
+    <data name="Guardar" xml:space="preserve">
+      <value>Save</value>
+    </data>
+    <data name="NuevaDireccion" xml:space="preserve">
+      <value>New address</value>
+    </data>
+    <data name="Ciudad" xml:space="preserve">
+      <value>City</value>
+    </data>
+    <data name="FueraDeStock" xml:space="preserve">
+      <value>Out of stock</value>
+    </data>
+    <data name="TienesProductosAgotados" xml:space="preserve">
+      <value>You have out of stock products</value>
+    </data>
+    <data name="ComprarPorPuntos" xml:space="preserve">
+      <value>Buy with points</value>
+    </data>
+    <data name="GastarPuntos" xml:space="preserve">
+      <value>Use points</value>
+    </data>
+    <data name="EntraYa" xml:space="preserve">
+      <value>Get Started!</value>
+    </data>
+    <data name="Imprimir" xml:space="preserve">
+      <value>Print</value>
+    </data>
+    <data name="GraciasPorSuCompra" xml:space="preserve">
+      <value>Thanks for buying!</value>
+    </data>
+    <data name="Soporte" xml:space="preserve">
+      <value>Support</value>
+    </data>
+    <data name="Home" xml:space="preserve">
+      <value>Home</value>
+    </data>
+    <data name="CancelandoSuCompra" xml:space="preserve">
+      <value>Cancelling your buy</value>
+    </data>
+</root>

@@ -1,0 +1,83 @@
+@using IJSObjectReference = Microsoft.JSInterop.IJSObjectReference
+@inject IJSRuntime JsRuntime
+@implements IAsyncDisposable
+
+<dialog @ref="_dialog" class="flex inset-0 fixed items-center max-w-full max-h-full duration-150 justify-center size-full bg-transparent" @onclick="Close" aria-modal="true">
+    <form class="select-none m-auto w-[80vw] shadow-xl max-w-[400px] bg-background dark:bg-surface dark:bg-[#292929] text-center p-4 rounded-xl" method="dialog" @onclick:stopPropagation>
+        <h1 class="font-bold text-text text-xl mb-3">@Title</h1>
+        <p class="text-gray-500 dark:text-gray-300">@Content</p>
+        <hr class="mt-4 border-t-gray-300">
+        <div class="flex font-semibold gap-3 mt-4">
+            <button type="reset" @onclick="@Close" class="flex-1 p-2 rounded-md text-primary transition-all cursor-pointer hover:bg-primary-light">Cancelar</button>
+            <button @onclick="Accept" class="flex-1 p-2 rounded-md bg-primary transition-all hover:bg-primary-dark cursor-pointer text-white">Aceptar</button>
+        </div>
+    </form>
+</dialog>
+
+@code {
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string Content { get; set; } = string.Empty;
+
+    [Parameter] public EventCallback Accept { get; set; }
+    [Parameter] public EventCallback Cancel { get; set; }
+
+    private IJSObjectReference? _instance;
+    private IJSObjectReference? _module;
+    private ElementReference _dialog;
+
+    public async Task Open()
+    {
+        if (_instance == null) return;
+        await _instance.InvokeVoidAsync("open");
+    }
+
+    [JSInvokable]
+    public async Task CancelFromJs()
+    {
+        await Cancel.InvokeAsync();
+    }
+
+    private async Task Close()
+    {
+        if (_instance == null) return;
+        await _instance.InvokeVoidAsync("close");
+        await Cancel.InvokeAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        _module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/modal.js");
+        _instance = await _module.InvokeAsync<IJSObjectReference>("DialogModule", _dialog);
+        await _instance.InvokeVoidAsync("listen");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_instance != null)
+            {
+                try
+                {
+                    await _instance.InvokeVoidAsync("dispose");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error disposing dialog instance: {ex.Message}");
+                }
+                finally
+                {
+                    await _instance.DisposeAsync();
+                }
+            }
+
+            if (_module != null) await _module.DisposeAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in DisposeAsync: {ex.Message}");
+        }
+    }
+
+}

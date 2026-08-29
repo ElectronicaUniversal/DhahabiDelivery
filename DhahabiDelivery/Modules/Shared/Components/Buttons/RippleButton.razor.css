@@ -1,0 +1,34 @@
+﻿button {
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    border: none;
+    outline: none;
+    font-weight: 400;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    cursor: pointer;
+}
+
+div {
+    border-radius: 5px;
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+    overflow: hidden;
+    color: white;
+}
+
+.small {
+    padding: 10px;
+}
+
+.medium {
+    padding: 5px;
+}
+
+.normal button {
+    padding: 1rem
+}

@@ -1,0 +1,158 @@
+@attribute [Route(Pages.Home)]
+@attribute [Authorize]
+@using DhahabiDelivery.Modules.Entregas.Exceptions
+@using DhahabiDelivery.Modules.Shared.Components.Buttons
+@using Microsoft.AspNetCore.Authorization
+@inherits DhahabiDelivery.Modules.Shared.ViewModelComponent<DhahabiDelivery.Modules.Entregas.ViewModels.EntregasViewModel>
+
+<article class="h-full p-2 bg-background">
+    <div class="h-full flex items-center justify-center bg-surface p-2 rounded-md">
+        @if (ViewModel.LoadingState == LoadingButton.State.Success)
+        {
+            <div role="list" class="size-full flex flex-col gap-2">
+                @for (var i = 0; i < ViewModel.EntregasAsignadas.Length; i++)
+                {
+                    var entrega = ViewModel.EntregasAsignadas[i];
+                    <EntregasItem Item="@entrega" Index="@i"/>
+                }
+                @if (ViewModel.EntregasAsignadas.Length == 0)
+                {
+                    <div class="m-auto flex flex-col gap-1">
+                        <lottie-player
+                            src="/lottie/empty.json"
+                            background="transparent"
+                            speed="1"
+                            style="height: 170px;"
+                            class="m-auto"
+                            loop autoplay>
+                        </lottie-player>
+                        <h1 class="font-bold text-center text-xl m-auto">No tienes entregas asignadas</h1>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="flex flex-col items-center gap-4 p-6">
+                @switch (ViewModel.LoadingState)
+                {
+                    case LoadingButton.State.Loading:
+                        <lottie-player
+                            src="/lottie/loading.json"
+                            background="transparent"
+                            speed="1"
+                            style="height: 180px;"
+                            class="m-auto"
+                            loop autoplay>
+                        </lottie-player>
+                        <h1 class="font-bold text-center text-xl text-gray-800 dark:text-gray-300 mb-2">Obteniendo
+                            entregas</h1>
+                        break;
+                    case LoadingButton.State.Error:
+                        <lottie-player
+                            src="/lottie/connection_error.json"
+                            background="transparent"
+                            speed="1"
+                            style="height: 180px;"
+                            class="m-auto"
+                            loop autoplay>
+                        </lottie-player>
+                        <div class="text-center">
+                            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-300 mb-2">Error al cargar
+                                entregas</h2>
+                            <p class="text-gray-600 dark:text-gray-400 max-w-md">No pudimos obtener las entregas
+                                actuales.
+                                Por favor verifica
+                                tu conexión.</p>
+                        </div>
+                        break;
+                    case LoadingButton.State.Normal:
+                    case LoadingButton.State.Success:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                <LoadingButton OnClick="Reload" ButtonState="ViewModel.LoadingState">
+                    Rententar
+                </LoadingButton>
+            </div>
+        }
+    </div>
+    <!-- GPS Error Dialog -->
+    @if (_showGpsErrorDialog)
+    {
+        <div class="dialog-overlay">
+            <div class="dialog-container">
+                <div class="dialog-header">
+                    <h3>Se requiere GPS</h3>
+                </div>
+                <div class="dialog-content">
+                    <p>@_errorMessage</p>
+                </div>
+                <div class="dialog-actions">
+                    <button @onclick="OpenGpsSettings" class="btn-primary">Abrir Configuración</button>
+                    <button @onclick="CloseGpsErrorDialog" class="btn-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    }
+</article>
+
+
+@code {
+    private bool _showGpsErrorDialog;
+    private string _errorMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await ViewModel.ObtenerEntregasAsignadasAsync();
+        try
+        {
+            ViewModel.State = await ViewModel.ObtenerEstadoRepartidorAsync();
+        }
+        catch (GpsNotEnabledException ex)
+        {
+            _errorMessage = ex.Message;
+
+            _showGpsErrorDialog = true;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+        }
+    }
+
+    private void CloseGpsErrorDialog()
+    {
+        _showGpsErrorDialog = false;
+        StateHasChanged();
+    }
+
+    private async Task OpenGpsSettings()
+    {
+        _showGpsErrorDialog = false;
+        StateHasChanged();
+
+        // Abrir la configuración del GPS
+#if ANDROID
+        await GpsUtils.RequestEnableGpsAsync();
+#endif
+    }
+
+
+    private async Task Reload()
+    {
+        try
+        {
+            await ViewModel.ObtenerEntregasAsignadasAsync();
+            ViewModel.State = await ViewModel.ObtenerEstadoRepartidorAsync();
+        }
+        catch (Exception ex)
+        {
+            ViewModel.LoadingState = LoadingButton.State.Error;
+        }
+    }
+
+}

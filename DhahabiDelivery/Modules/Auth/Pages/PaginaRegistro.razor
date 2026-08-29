@@ -1,0 +1,71 @@
+﻿@using DhahabiDelivery.Modules.Auth.Layouts
+@using DhahabiDelivery.Modules.Shared.Components.Buttons
+@using DhahabiDelivery.Modules.Shared.Components.Dialogs
+@using DhahabiDelivery.Shared.Resources
+@using Microsoft.Extensions.Localization
+@layout AuthLayout
+@attribute [Route(Pages.Registro)]
+@inject NavigationManager Nm;
+@inject IStringLocalizer<Idioma> Language
+<div class="contenedor-registro">
+
+    <Dialog Visible="@(!string.IsNullOrEmpty(_errorMessage))"
+            Title="@Language[Idioma.Error]"
+            Content="@_errorMessage"
+            Cancel="@DismissErrorModal">
+        <Icono>
+            <IconoError/>
+        </Icono>
+    </Dialog>
+
+    <EditForm style="view-transition-name: auth-form-container" class="form" Model="Model" FormName="RegisterForm" OnValidSubmit="@OnValidSubmit">
+        <DataAnnotationsValidator/>
+        <h1 class="text-2xl font-bold">@Language[Idioma.Registrarse]</h1>
+
+        <div class="dual flex gap-1 w-full">
+            <TextInput Placeholder="@Language[Idioma.NombreUsario]"
+                       @bind-Value="@Model!.NickName" ValidationFor="@(() => Model.NickName)"/>
+
+            <TextInput Placeholder="@Language[Idioma.Nombre]"
+                       @bind-Value="@Model!.Name" ValidationFor="@(() => Model.Name)"/>
+        </div>
+
+        <TextInput Placeholder="@Language[Idioma.Apellidos]"
+                   @bind-Value="@Model!.LastName" ValidationFor="@(() => Model.LastName)"/>
+
+        <TextInput Placeholder="@Language[Idioma.CorreoElectronico]"
+                   @bind-Value="@Model!.Email" ValidationFor="@(() => Model.Email)"/>
+
+        <TextInput Placeholder="@Language[Idioma.Contrasenia]"
+                   @bind-Value="@Model!.Password" ValidationFor="@(() => Model.Password)"/>
+
+        <div class="dual flex gap-1 w-ful">
+            <InputRadioGroup @bind-Value="@Model.EsMasculino">
+                <div class="radio-wrapper">
+                    <InputRadio id="masculino" Value="true"/>
+                    <label class="radio-label" for="masculino">
+                        @Language[Idioma.Hombre]
+                    </label>
+
+                    <InputRadio id="femenino" Value="false"/>
+                    <label class="radio-label" for="femenino">
+                        @Language[Idioma.Mujer]
+                    </label>
+                </div>
+            </InputRadioGroup>
+
+            <InputDate @bind-Value="@Model.FechaNacimiento" max="@DateTime.Today.AddYears(-18)"/>
+        </div>
+
+        @* end form data *@
+        <div style="view-transition-name: auth-submit-button">
+            <LoadingButton ButtonState="_isLoading">
+                @Language[Idioma.Registrarse]
+            </LoadingButton>
+        </div>
+
+        <span style="view-transition-name: auth-change-auth">
+            @Language[Idioma.YaTienesUnaCuenta] <a href="@Pages.Login">@Language[Idioma.Login]</a>
+        </span>
+    </EditForm>
+</div>

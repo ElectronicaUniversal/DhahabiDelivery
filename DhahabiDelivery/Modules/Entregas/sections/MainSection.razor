@@ -1,0 +1,226 @@
+@using DhahabiDelivery.Modules.Shared.Components
+@using FrontentCompartido.Modules.Shared.Services
+@using Mensajeria
+@inherits DhahabiDelivery.Modules.Shared.ViewModelComponent<DhahabiDelivery.Modules.Entregas.ViewModels.EntregasViewModel>
+@inject IImageService ImageService
+
+<div class="flex flex-col h-full bg-card-background text-text p-4 overflow-y-auto">
+    <!-- Cliente info con diseño mejorado -->
+    <div class="bg-surface rounded-lg p-4 mb-4">
+        <div class="flex justify-between items-center">
+            <div class="flex gap-3">
+                <div class="relative">
+                    <img alt="@ViewModel.EntregaSeleccionada?.NombreCliente"
+                         class="w-14 h-14 rounded-full object-cover bg-surface"
+                         src="@GetClientImage()"/>
+                    <div
+                        class="absolute -bottom-1 -right-1 bg-green-500 rounded-full w-3 h-3 border-2 border-card-background"></div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-base">@ViewModel.EntregaSeleccionada?.NombreCliente</h3>
+                    <div class="flex flex-col text-xs text-text opacity-70">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                                 class="bi bi-telephone mr-1" viewBox="0 0 16 16">
+                                <path
+                                    d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                            </svg>
+                            @ViewModel.EntregaSeleccionada?.TelefonoCliente
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right text-xs opacity-70">
+                Orden #@ViewModel.EntregaSeleccionada?.Id
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="bg-surface rounded-lg p-3 mb-4 border border-divider @(ViewModel.EntregaSeleccionada?.MetodoPago == "CASH" ? "border-l-3 border-l-yellow-400" : "")">
+        <div class="flex items-center gap-3">
+            @if (ViewModel.EntregaSeleccionada?.MetodoPago == "CASH")
+            {
+                <div class="text-yellow-500 dark:text-yellow-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                         viewBox="0 0 16 16">
+                        <path
+                            d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-medium">Método de pago</h3>
+                        <span
+                            class="text-yellow-600 dark:text-yellow-400 text-xs font-medium px-2 py-0.5 bg-yellow-50 dark:bg-yellow-900/20 rounded-full">
+                        Efectivo
+                    </span>
+                    </div>
+                    <p class="text-sm mt-1 text-gray-600 dark:text-gray-400">
+                        Cobrar <span class="font-medium text-text"><PriceContainer
+                                Moneda="@ViewModel.EntregaSeleccionada?.CodigoMoneda"
+                                Price="@(ViewModel.EntregaSeleccionada?.Total ?? 0)"/></span>
+                    </p>
+                </div>
+            }
+            else
+            {
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="text-gray-500"
+                     viewBox="0 0 16 16">
+                    <path
+                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1"></path>
+                </svg>
+                <div>
+                    <h3 class="text-sm font-medium mb-1">Método de pago</h3>
+                    <p class="text-text">@ViewModel.EntregaSeleccionada?.MetodoPago</p>
+                </div>
+            }
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(ViewModel.EntregaSeleccionada?.DireccionEntrega))
+    {
+        <!-- Dirección de entrega destacada -->
+        <div class="bg-primary-light rounded-lg p-3 mb-4 border border-primary/20">
+            <h3 class="text-primary text-sm font-medium mb-1">Dirección de entrega</h3>
+            <p class="text-text">@ViewModel.EntregaSeleccionada?.DireccionEntrega</p>
+        </div>
+    }
+
+    <!-- Vendedores section con selección mejorada y animación -->
+    <div class="mb-4">
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-text">Puntos de recogida</h3>
+            <button class="text-primary text-sm hover:underline transition-all" @onclick="ResetVendorSelection">
+                Ver todos
+            </button>
+        </div>
+        <div class="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1" role="list">
+            @foreach (var vendedor in ViewModel.EntregaSeleccionada?.Vendedores ?? [])
+            {
+                <div @onclick="() => SelectVendor(vendedor)"
+                     class="vendedor-item @(IsVendorSelected(vendedor) ? "selected" : "") flex flex-col items-center p-2 rounded-lg cursor-pointer min-w-[80px]">
+                    <div class="w-12 h-12 rounded-full overflow-hidden mb-1 bg-surface">
+                        <img alt="@vendedor.Nombre" src="@GetImage($"vendedores/{vendedor.Imagen}")"
+                             class="w-full h-full object-cover"/>
+                    </div>
+                    <span class="text-xs font-medium text-center line-clamp-2 w-full">
+                        @vendedor.Nombre
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="flex-1">
+        <div class="flex justify-between items-center mb-2">
+            <div class="flex items-center">
+                <h3 class="font-semibold text-text">
+                    @if (ViewModel.VendedorSeleccionado != null)
+                    {
+                        <span>Productos de @ViewModel.VendedorSeleccionado.Nombre</span>
+                    }
+                    else
+                    {
+                        <span>Todos los productos</span>
+                    }
+                </h3>
+                <span class="ml-2 bg-surface text-text px-2 py-0.5 rounded-full text-xs">
+                    @GetFilteredProducts().Length
+                </span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-2" id="products-container">
+            @{
+                var productos = GetFilteredProducts();
+                for (var i = 0; i < productos.Length; i++)
+                {
+                    var producto = productos[i];
+                    var staggerClass = $"product-stagger-{i % 6}";
+
+                    <div
+                        class="producto-item product-enter @staggerClass bg-card-background border border-divider rounded-lg overflow-hidden flex flex-col"
+                        @key="@producto.Id">
+                        <div class="h-20 bg-surface relative">
+                            <img alt="@producto.Nombre"
+                                 src="@GetImage($"productos/{producto.Imagen}")"
+                                 class="w-full h-full object-contain p-2"/>
+                            <div
+                                class="absolute top-1 right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                                @producto.Cantidad
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <div class="text-xs font-medium line-clamp-2">@producto.Nombre</div>
+                            <div class="flex flex-wrap gap-2 justify-between items-center mt-1">
+                                <span class="text-xs opacity-70">@producto.Vendedor.Nombre</span>
+                                <span class="text-xs opacity-70">
+                                    <PriceContainer Moneda="@ViewModel.EntregaSeleccionada?.CodigoMoneda"
+                                                    Price="producto.Precio"/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        @if (!GetFilteredProducts().Any())
+        {
+            <div class="flex flex-col items-center justify-center py-10 opacity-70 animate-fadeIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                     class="bi bi-box mb-2" viewBox="0 0 16 16">
+                    <path
+                        d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/>
+                </svg>
+                <p>No hay productos disponibles</p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    private ProductoEntregaResumen[] GetFilteredProducts()
+    {
+        if (ViewModel.EntregaSeleccionada == null)
+            return [];
+
+        if (ViewModel.VendedorSeleccionado == null)
+            return ViewModel.EntregaSeleccionada.Productos.ToArray();
+
+        var filteredProducts = ViewModel.EntregaSeleccionada.Productos
+            .Where(p => p.Vendedor.Id == ViewModel.VendedorSeleccionado.Id)
+            .ToArray();
+
+        return filteredProducts;
+    }
+
+    private string GetImage(string text)
+    {
+        return ImageService.GetImageUrl($"{text}");
+    }
+
+    private static string GetClientImage()
+    {
+        return "data:image/jpeg;base64,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";
+    }
+
+    private void SelectVendor(VendedorEntregaResumen vendedor)
+    {
+        ViewModel.VendedorSeleccionado = vendedor;
+        StateHasChanged();
+    }
+
+    private void ResetVendorSelection()
+    {
+        ViewModel.VendedorSeleccionado = null;
+        StateHasChanged();
+    }
+
+    private bool IsVendorSelected(VendedorEntregaResumen vendedor)
+    {
+        return ViewModel.VendedorSeleccionado?.Id == vendedor.Id;
+    }
+
+}

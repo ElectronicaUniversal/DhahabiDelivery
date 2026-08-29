@@ -1,0 +1,43 @@
+<div role="toolbar"
+     class="sticky shrink-0 bottom-0 left-0 z-50 w-full h-16 bg-background shadow-md dark:bg-[#1a1a1a] border-t border-gray-200 dark:border-gray-700">
+    <nav class="grid size-full max-w-lg grid-cols-3 mx-auto font-medium">
+        <NavLink Match="NavLinkMatch.All" href="@Pages.Home" ActiveClass="bg-gray-50 dark:bg-[#2e2e2e]"
+                 class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-[#2e2e2e] group">
+            <svg
+                class="w-5 h-5 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-primary dark:group-hover:text-primary"
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+            </svg>
+            <span
+                class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-primary dark:group-hover:text-primary">Home</span>
+        </NavLink>
+        <NavLink href="@Pages.Scanner" ActiveClass="bg-gray-50 dark:bg-[#2e2e2e]"
+                 class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-[#2e2e2e] group">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                 class="w-5 h-5 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-primary dark:group-hover:text-primary"
+                 viewBox="0 0 16 16">
+                <path
+                    d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
+                <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
+                <path d="M7 9H2v5h5zm-4 1h3v3H3zm8-6h1v1h-1z"/>
+                <path
+                    d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z"/>
+                <path d="M12 9h2V8h-2z"/>
+            </svg>
+            <span
+                class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-primary dark:group-hover:text-primary">Scanner</span>
+        </NavLink>
+        <NavLink href="@Pages.Usuario" ActiveClass="bg-gray-50 dark:bg-[#2e2e2e]"
+                 class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-[#2e2e2e] group">
+            <svg
+                class="w-5 h-5 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-primary dark:group-hover:text-primary"
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+            </svg>
+            <span
+                class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-primary dark:group-hover:text-primary">Profile</span>
+        </NavLink>
+    </nav>
+</div>

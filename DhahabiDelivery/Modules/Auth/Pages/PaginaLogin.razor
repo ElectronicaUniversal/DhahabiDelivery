@@ -1,0 +1,41 @@
+﻿@using DhahabiDelivery.Modules.Auth.Layouts
+@using DhahabiDelivery.Modules.Auth.Services
+@using DhahabiDelivery.Modules.Shared.Components.Buttons
+@using DhahabiDelivery.Shared.Resources
+@using Microsoft.Extensions.Localization
+@attribute [Route(Pages.Login)]
+@layout AuthLayout
+@inject NavigationManager Nm;
+@inject AuthService AuthService;
+@inject IStringLocalizer<Idioma> Language
+
+<article class="size-full p-4 flex bg-background">
+    <Dialog
+        @ref="@_dialog"
+        Title="@Language[Idioma.Error]"
+        Content="@_errorMessage">
+    </Dialog>
+
+    <EditForm style="view-transition-name: auth-form-container" class="m-auto w-[80vw] max-w-90 flex flex-col items-center justify-center gap-3" Model="Model" FormName="LoginForm" OnValidSubmit="@OnValidSubmit">
+        <DataAnnotationsValidator/>
+        <h1 class="font-bold text-2xl mb-4">@Language[Idioma.Login]</h1>
+
+        <TextInput class="email" Placeholder="@Language[Idioma.CorreoElectronico]"
+                   @bind-Value="@Model!.Email" ValidationFor="@(() => Model!.Email!)"/>
+
+        <TextInput Placeholder="@Language[Idioma.Contrasenia]" @bind-Value="@Model!.Password"
+                   ValidationFor="@(() => Model!.Password)"/>
+
+        <a class="text-[12px] text-gray-400 text-right w-full" href="/olvidar-contrasenia/@Model?.Email">@Language[Idioma.OlvidasteTuContrasenia]</a>
+
+        <div class="w-full flex mt-3" style="view-transition-name: auth-submit-button">
+            <LoadingButton ButtonState="_isLoading">
+                @Language[Idioma.Login]
+            </LoadingButton>
+        </div>
+        <span class="text-sm text-gray-400" style="view-transition-name: auth-change-auth">
+            @Language[Idioma.NoTienesUnaCuenta] <a class="text-accent" href="@Pages.Registro">@Language[Idioma.Registrarse]</a>
+        </span>
+
+    </EditForm>
+</article>

@@ -1,0 +1,57 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="Email" xml:space="preserve">
+        <value>Correo</value>
+    </data>
+    <data name="Password" xml:space="preserve">
+        <value>Contraseña</value>
+    </data>
+    <data name="NickName" xml:space="preserve">
+        <value>Apodo</value>
+    </data>
+    <data name="LastName" xml:space="preserve">
+        <value>Apellido</value>
+    </data>
+    <data name="Sex" xml:space="preserve">
+        <value>Sexo</value>
+    </data>
+    <data name="BornDate" xml:space="preserve">
+        <value>Fecha de nacimiento</value>
+    </data>
+    <data name="Name" xml:space="preserve">
+        <value>Nombre</value>
+    </data>
+    <data name="Pais" xml:space="preserve">
+        <value>País</value>
+    </data>
+    <data name="State" xml:space="preserve">
+        <value>Estado / Provincia</value>
+    </data>
+    <data name="City" xml:space="preserve">
+        <value>Ciudad / Municipio</value>
+    </data>
+    <data name="Phone" xml:space="preserve">
+        <value>Telefono</value>
+    </data>
+    <data name="GpsLocation" xml:space="preserve">
+        <value>Dirección Gps</value>
+    </data>
+    <data name="Comentarios" xml:space="preserve">
+        <value>Comentarios</value>
+    </data>
+</root>

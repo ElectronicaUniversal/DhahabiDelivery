@@ -1,0 +1,26 @@
+@attribute [Route(Pages.EntregasDetailId)]
+@inject AuthService AuthService
+@using DhahabiDelivery.Modules.Auth.Services
+@using DhahabiDelivery.Modules.Entregas.sections
+@inherits DhahabiDelivery.Modules.Shared.ViewModelComponent<DhahabiDelivery.Modules.Entregas.ViewModels.EntregasViewModel>
+
+@if (_state == ConstantesEstadoRepartidor.ENTREGANDO)
+{
+    <EntregaDetailSection Id="Id"/>
+}
+else
+{
+    <EntregaDetailSection Id="Id"/>
+}
+
+@code {
+    [Parameter] public required int Id { get; set; }
+
+    private string _state = string.Empty;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        _state = AuthService.GetDeliveryStateAsync();
+    }
+
+}

@@ -1,0 +1,56 @@
+﻿@inject IStringLocalizer<Idioma> Language
+@using DhahabiDelivery.Modules.Auth.Layouts
+@using DhahabiDelivery.Modules.Auth.Models
+@using DhahabiDelivery.Modules.Shared.Components.Dialogs
+@using DhahabiDelivery.Shared.Resources
+@using Microsoft.Extensions.Localization
+@inherits DhahabiDelivery.Modules.Shared.ViewModelComponent<DhahabiDelivery.Modules.Auth.ViewModels.ConfirmarEmailViewModel>
+@layout AuthLayout
+@attribute [Route(Pages.ConfirmarEmailReason)]
+
+<div class="contenedor-principal">
+    <Dialog Visible="@(!string.IsNullOrEmpty(ViewModel.ErrorMessage))"
+            Title="@Language[Idioma.Error]"
+            Content="@ViewModel.ErrorMessage"
+            Cancel="@DismissErrorModal">
+        <Icono>
+            <IconoError/>
+        </Icono>
+    </Dialog>
+
+    <EditForm Model="_token" FormName="Confirmar-email" OnValidSubmit="ViewModel.ConfirmarEmail">
+        <IconoSeguridad/>
+        <h1>@Language[Idioma.VerificaTuCorreoelectronico]</h1>
+        <p>
+            @switch (Reason)
+            {
+                case ConfirmarEmailReason.Login:
+                    @Language[Idioma.TeEnviaremosUnEmailA]
+                    <strong> @ViewModel.DecodedEmail</strong>
+                    @Language[Idioma.ParaCompletarElInicioDeSesion]
+                    break;
+                case ConfirmarEmailReason.Register:
+                    @Language[Idioma.TeEnviamosUnEmailA]
+                    <strong> @ViewModel.DecodedEmail</strong>
+                    @Language[Idioma.ParaCompletarElRegistro]
+                    break;
+                case ConfirmarEmailReason.ChangePassword:
+                    @Language[Idioma.TeEnviamosUnEmailA]
+                    <strong> @ViewModel.DecodedEmail </strong>
+                    @Language[Idioma.ParaCompletarElCambioContrasenia]
+                    break;
+            }
+        </p>
+
+        <TextInput
+            Placeholder="@Language[Idioma.Token]"
+            ValidationFor="() => ViewModel.Token"
+            @bind-Value="ViewModel.Token"/>
+
+        <button class="@(ViewModel.IsLoading ? "loading" : "not-loading")">@Language[Idioma.Confirmar]</button>
+
+        <button class="@(ViewModel.SendEmailLoading ? "loading" : "not-loading")" @onclick="ViewModel.SendEmail">
+            @(Reason == ConfirmarEmailReason.Login ? Language[Idioma.EnviarEmail] : Language[Idioma.ReenviarEmail])
+        </button>
+    </EditForm>
+</div>

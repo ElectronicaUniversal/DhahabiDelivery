@@ -1,0 +1,468 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="Aceptamos" xml:space="preserve">
+        <value>Aceptamos</value>
+    </data>
+    <data name="AgregarAlCarrito" xml:space="preserve">
+        <value>Añadir al Carrito</value>
+    </data>
+    <data name="Apellidos" xml:space="preserve">
+        <value>Apellido(s)</value>
+    </data>
+    <data name="AtencionAlCliente" xml:space="preserve">
+        <value>Atención al cliente</value>
+    </data>
+    <data name="Ayuda" xml:space="preserve">
+        <value>Ayuda</value>
+    </data>
+    <data name="Bienvenido" xml:space="preserve">
+        <value>Bienvenido</value>
+    </data>
+    <data name="Buscar" xml:space="preserve">
+        <value>Buscar</value>
+    </data>
+    <data name="CantidadDeExistencias" xml:space="preserve">
+        <value>Cantidad de existencias</value>
+    </data>
+    <data name="Carrito" xml:space="preserve">
+        <value>Carrito</value>
+    </data>
+    <data name="Categorias" xml:space="preserve">
+        <value>Categorías</value>
+    </data>
+    <data name="CategoriasPopulares" xml:space="preserve">
+        <value>Categorías populares</value>
+    </data>
+    <data name="CentroDeAyuda" xml:space="preserve">
+        <value>Centro de ayuda</value>
+    </data>
+    <data name="Cerrar" xml:space="preserve">
+        <value>Cerrar</value>
+    </data>
+    <data name="CertificacionDeSeguridad" xml:space="preserve">
+        <value>Certificación de seguridad</value>
+    </data>
+    <data name="ComoRastrearUnPedido" xml:space="preserve">
+        <value>¿Cómo rastrear un pedido?</value>
+    </data>
+    <data name="ComoRealizarUnPedido" xml:space="preserve">
+        <value>¿Cómo realizar un pedido?</value>
+    </data>
+    <data name="Compartir" xml:space="preserve">
+        <value>Compartir</value>
+    </data>
+    <data name="Comprar" xml:space="preserve">
+        <value>Comprar</value>
+    </data>
+    <data name="ComprarAhora" xml:space="preserve">
+        <value>Comprar Ahora</value>
+    </data>
+    <data name="Confirmar" xml:space="preserve">
+        <value>Confirmar</value>
+    </data>
+    <data name="Contactanos" xml:space="preserve">
+        <value>Contáctanos</value>
+    </data>
+    <data name="Contacto" xml:space="preserve">
+        <value>Contacto</value>
+    </data>
+    <data name="Contrasenia" xml:space="preserve">
+        <value>Contraseña</value>
+    </data>
+    <data name="ContraseniaMuyGrande" xml:space="preserve">
+        <value>La contraseña es demasiado grande</value>
+    </data>
+    <data name="CorreoElectronico" xml:space="preserve">
+        <value>Correo Electrónico</value>
+    </data>
+    <data name="CreaContrasenia" xml:space="preserve">
+        <value>Crea una contraseña</value>
+    </data>
+    <data name="CrearUnaCuenta" xml:space="preserve">
+        <value>Crear una cuenta</value>
+    </data>
+    <data name="CuponesYCodigosDeDescuento" xml:space="preserve">
+        <value>Cupones y códigos de descuento</value>
+    </data>
+    <data name="DescubreTusGustos" xml:space="preserve">
+        <value>Descubre tus gustos</value>
+    </data>
+    <data name="DescuentoParaPersonasDeLaTerceraEdad" xml:space="preserve">
+        <value>Descuento para personas de la tercera edad</value>
+    </data>
+    <data name="DescuentoPorCupones" xml:space="preserve">
+        <value>Descuento por cupones</value>
+    </data>
+    <data name="DescuentoPorOfertas" xml:space="preserve">
+        <value>Descuento por ofertas</value>
+    </data>
+    <data name="Direccion" xml:space="preserve">
+        <value>Dirección</value>
+    </data>
+    <data name="DireccionDeEnvio" xml:space="preserve">
+        <value>Dirección de envío</value>
+    </data>
+    <data name="ElEmailYaExiste" xml:space="preserve">
+        <value>Ya existe una cuenta con esa dirección de email</value>
+    </data>
+    <data name="Eliminar" xml:space="preserve">
+        <value>Eliminar</value>
+    </data>
+    <data name="EmailNoConfirmado" xml:space="preserve">
+        <value>Email no confirmado</value>
+    </data>
+    <data name="EnviarEmail" xml:space="preserve">
+        <value>Enviar email</value>
+    </data>
+    <data name="Error" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="ErrorDeConexion" xml:space="preserve">
+        <value>Error de conexión</value>
+    </data>
+    <data name="ErrorDesconocido" xml:space="preserve">
+        <value>Error desconocido</value>
+    </data>
+    <data name="EscogeElMetodoDePago" xml:space="preserve">
+        <value>Escoge el método de pago</value>
+    </data>
+    <data name="EstasSeguroQueDeseasSalir" xml:space="preserve">
+        <value>¿Estás seguro de que deseas salir?</value>
+    </data>
+    <data name="Fecha" xml:space="preserve">
+        <value>Fecha</value>
+    </data>
+    <data name="Filtros" xml:space="preserve">
+        <value>Filtros</value>
+    </data>
+    <data name="HacerPedido" xml:space="preserve">
+        <value>Hacer pedido</value>
+    </data>
+    <data name="HaOcurridoUnErrorDeConexion" xml:space="preserve">
+        <value>Ha ocurrido un error de conexion</value>
+    </data>
+    <data name="HaOcurridoUnErrorDesconocido" xml:space="preserve">
+        <value>Ha ocurrido un error desconocido</value>
+    </data>
+    <data name="Hombre" xml:space="preserve">
+        <value>Hombre</value>
+    </data>
+    <data name="IdDeOrden" xml:space="preserve">
+        <value>Id de orden</value>
+    </data>
+    <data name="InformacionDeLaEmpresa" xml:space="preserve">
+        <value>Información de la empresa</value>
+    </data>
+    <data name="IntroduceCorreo" xml:space="preserve">
+        <value>Introduce tu correo electrónico</value>
+    </data>
+    <data name="ListaDeCompra" xml:space="preserve">
+        <value>Lista de compra</value>
+    </data>
+    <data name="Login" xml:space="preserve">
+        <value>Iniciar Sesión</value>
+    </data>
+    <data name="MapaDelSitio" xml:space="preserve">
+        <value>Mapa del sitio</value>
+    </data>
+    <data name="MetodosDePagoDisponibles" xml:space="preserve">
+        <value>Métodos de pago disponibles</value>
+    </data>
+    <data name="Mujer" xml:space="preserve">
+        <value>Mujer</value>
+    </data>
+    <data name="Idioma.fr" xml:space="preserve">
+        <value>Nombre</value>
+    </data>
+    <data name="NombreAplicacion" xml:space="preserve">
+        <value>Tienda Virtual</value>
+    </data>
+    <data name="NombreUsario" xml:space="preserve">
+        <value>Nombre de Usuario</value>
+    </data>
+    <data name="NoTienesUnaCuenta" xml:space="preserve">
+        <value>¿No tienes una cuenta?</value>
+    </data>
+    <data name="Notificaciones" xml:space="preserve">
+        <value>Notificaciones</value>
+    </data>
+    <data name="Nuevo" xml:space="preserve">
+        <value>Nuevo!</value>
+    </data>
+    <data name="NumeroDeTelefono" xml:space="preserve">
+        <value>Número de teléfono</value>
+    </data>
+    <data name="OfertasEspeciales" xml:space="preserve">
+        <value>Ofertas especiales</value>
+    </data>
+    <data name="OfertasSemanales" xml:space="preserve">
+        <value>Ofertas semanales</value>
+    </data>
+    <data name="OlvidasteTuContrasenia" xml:space="preserve">
+        <value>¿Olvidaste tu contraseña?</value>
+    </data>
+    <data name="ParaCompletarElCambioContrasenia" xml:space="preserve">
+        <value>para completar el cambio de contraseña</value>
+    </data>
+    <data name="ParaCompletarElInicioDeSesion" xml:space="preserve">
+        <value>para completar el inicio de sesión</value>
+    </data>
+    <data name="ParaCompletarElRegistro" xml:space="preserve">
+        <value>para completar el proceso de registro de tu cuenta</value>
+    </data>
+    <data name="Pedidos" xml:space="preserve">
+        <value>Pedidos</value>
+    </data>
+    <data name="PoliticaDeDevolucionYReembolso" xml:space="preserve">
+        <value>Política de devolución y reembolso</value>
+    </data>
+    <data name="PoliticaDeEnvios" xml:space="preserve">
+        <value>Política de envíos</value>
+    </data>
+    <data name="PoliticaDePropiedadIntelectual" xml:space="preserve">
+        <value>Política de propiedad intelectual</value>
+    </data>
+    <data name="PorfavorCreaUnaCuenta" xml:space="preserve">
+        <value>Para formar parte de nuestra comunidad por favor registrate con tu informacion personal</value>
+    </data>
+    <data name="PorfavorIniciaSession" xml:space="preserve">
+        <value>Por favor, inicia sesión con tu información personal para mantenerte conectado con nosotros</value>
+    </data>
+    <data name="Precio" xml:space="preserve">
+        <value>Precio</value>
+    </data>
+    <data name="PrecioOriginal" xml:space="preserve">
+        <value>Precio original</value>
+    </data>
+    <data name="Privacidad" xml:space="preserve">
+        <value>Privacidad</value>
+    </data>
+    <data name="ProcesandoSuCompra" xml:space="preserve">
+        <value>Procesando su compra ...</value>
+    </data>
+    <data name="Productos" xml:space="preserve">
+        <value>Productos</value>
+    </data>
+    <data name="ProductosPopulares" xml:space="preserve">
+        <value>Productos populares</value>
+    </data>
+    <data name="ProductosSimilares" xml:space="preserve">
+        <value>Productos similares</value>
+    </data>
+    <data name="ProteccionDeCompras" xml:space="preserve">
+        <value>Protección de compras</value>
+    </data>
+    <data name="PuntosGanados" xml:space="preserve">
+        <value>Puntos generados</value>
+    </data>
+    <data name="Recargar" xml:space="preserve">
+        <value>Recargar</value>
+    </data>
+    <data name="Recomendados" xml:space="preserve">
+        <value>Recomendados</value>
+    </data>
+    <data name="ReenviarEmail" xml:space="preserve">
+        <value>Reenviar email</value>
+    </data>
+    <data name="Registrarse" xml:space="preserve">
+        <value>Registrarse</value>
+    </data>
+    <data name="RepetirContrasenia" xml:space="preserve">
+        <value>Repetir Contraseña</value>
+    </data>
+    <data name="ReportarActividadSospechosa" xml:space="preserve">
+        <value>Reportar actividad sospechosa</value>
+    </data>
+    <data name="ResumenDelPedido" xml:space="preserve">
+        <value>Resumen del pedido</value>
+    </data>
+    <data name="Salir" xml:space="preserve">
+        <value>Salir</value>
+    </data>
+    <data name="SeAhorra" xml:space="preserve">
+        <value>Se ahorra</value>
+    </data>
+    <data name="SiguenosEnRedesSociales" xml:space="preserve">
+        <value>Síguenos en redes sociales</value>
+    </data>
+    <data name="Subtotal" xml:space="preserve">
+        <value>Subtotal</value>
+    </data>
+    <data name="SuCompraHaSidoCompletada" xml:space="preserve">
+        <value>Su compra ha sido completada!</value>
+    </data>
+    <data name="SuEmailNoHaSidoConfirmado" xml:space="preserve">
+        <value>Su email no ha sido confirmado</value>
+    </data>
+    <data name="TeEnviamosUnEmailA" xml:space="preserve">
+        <value>Te enviamos un email a</value>
+    </data>
+    <data name="TeEnviaremosUnEmailA" xml:space="preserve">
+        <value>Te enviaremos un email a</value>
+    </data>
+    <data name="TerminosDeUso" xml:space="preserve">
+        <value>Términos de uso</value>
+    </data>
+    <data name="TerminosYCondiciones" xml:space="preserve">
+        <value>Terminos y condiciones</value>
+    </data>
+    <data name="Tienda" xml:space="preserve">
+        <value>Tienda</value>
+    </data>
+    <data name="Todos" xml:space="preserve">
+        <value>Todos</value>
+    </data>
+    <data name="TokenIncorrecto" xml:space="preserve">
+        <value>Token incorrecto</value>
+    </data>
+    <data name="Total" xml:space="preserve">
+        <value>Total</value>
+    </data>
+    <data name="TusRetirosYAlertasDeSeguridad" xml:space="preserve">
+        <value>Tus retiros y alertas de seguridad</value>
+    </data>
+    <data name="Usuario" xml:space="preserve">
+        <value>Usuario</value>
+    </data>
+    <data name="UsuarioOContraseniaIncorrectos" xml:space="preserve">
+        <value>Usuario o contraseña incorrectos</value>
+    </data>
+    <data name="Valoracion" xml:space="preserve">
+        <value>Valoración</value>
+    </data>
+    <data name="VerificaTuCorreoelectronico" xml:space="preserve">
+        <value>Verifica tu correo electrónico</value>
+    </data>
+    <data name="VerMas" xml:space="preserve">
+        <value>Ver más</value>
+    </data>
+    <data name="YaTienesUnaCuenta" xml:space="preserve">
+        <value>¿Ya tienes una cuenta?</value>
+    </data>
+    <data name="TusPedidos" xml:space="preserve">
+        <value>Tus pedidos</value>
+    </data>
+    <data name="Idiomas" xml:space="preserve">
+        <value>Idiomas</value>
+    </data>
+    <data name="Direcciones" xml:space="preserve">
+        <value>Direcciones</value>
+    </data>
+    <data name="Perfil" xml:space="preserve">
+        <value>Perfil</value>
+    </data>
+    <data name="AcercaDe" xml:space="preserve">
+        <value>Acerca de</value>
+    </data>
+    <data name="Cancelar" xml:space="preserve">
+        <value>Cancelar</value>
+    </data>
+    <data name="VerDetalles" xml:space="preserve">
+        <value>Ver detalles</value>
+    </data>
+    <data name="Estado" xml:space="preserve">
+        <value>Estado</value>
+    </data>
+    <data name="Aplicar" xml:space="preserve">
+        <value>Aplicar</value>
+    </data>
+    <data name="EliminarCuenta" xml:space="preserve">
+        <value>Eliminar cuenta</value>
+    </data>
+    <data name="CambiarContrasenia" xml:space="preserve">
+        <value>Cambiar contraseña</value>
+    </data>
+    <data name="Token" xml:space="preserve">
+        <value>Token</value>
+    </data>
+    <data name="CambiarContraseniaMensaje" xml:space="preserve">
+        <value>Introduce una nueva contraseña para tu cuenta</value>
+    </data>
+    <data name="PuntosYCredito" xml:space="preserve">
+        <value>Puntos y crédito</value>
+    </data>
+    <data name="ComoFunciona" xml:space="preserve">
+        <value>¿Cómo funciona?</value>
+    </data>
+    <data name="ComoFunciona1" xml:space="preserve">
+        <value>Los puntos se acumulan cada vez que realizas una compra sin usar puntos</value>
+    </data>
+    <data name="ComoFunciona2" xml:space="preserve">
+        <value>Los puntos se usan para pagar nuevas compras</value>
+    </data>
+    <data name="ListaVacia" xml:space="preserve">
+        <value>Lista vacía</value>
+    </data>
+    <data name="DireccionTienda" xml:space="preserve">
+        <value>Dirección de la tienda</value>
+    </data>
+    <data name="ServicioADomicilio" xml:space="preserve">
+        <value>Servicio a domicilio</value>
+    </data>
+    <data name="RecogerEnTienda" xml:space="preserve">
+        <value>Recoger en tienda</value>
+    </data>
+    <data name="DireccionDeRecogidaMasCercana" xml:space="preserve">
+        <value>Dirección de recogida más cercana</value>
+    </data>
+    <data name="Pais" xml:space="preserve">
+        <value>País</value>
+    </data>
+    <data name="Nombre" xml:space="preserve">
+        <value>Nombre</value>
+    </data>
+    <data name="Guardar" xml:space="preserve">
+        <value>Guardar</value>
+    </data>
+    <data name="NuevaDireccion" xml:space="preserve">
+        <value>Nueva dirección</value>
+    </data>
+    <data name="Ciudad" xml:space="preserve">
+        <value>Ciudad</value>
+    </data>
+    <data name="FueraDeStock" xml:space="preserve">
+        <value>Agotado</value>
+    </data>
+    <data name="TienesProductosAgotados" xml:space="preserve">
+        <value>Tienes productos agotados en el carrito,  eliminalos o baja su cantidad.</value>
+    </data>
+    <data name="ComprarPorPuntos" xml:space="preserve">
+        <value>Comprar por puntos</value>
+    </data>
+    <data name="GastarPuntos" xml:space="preserve">
+        <value>Gastar puntos</value>
+    </data>
+    <data name="EntraYa" xml:space="preserve">
+        <value>Entra ya</value>
+    </data>
+    <data name="Imprimir" xml:space="preserve">
+        <value>Imprimir</value>
+    </data>
+    <data name="GraciasPorSuCompra" xml:space="preserve">
+        <value>Gracias por su compra!</value>
+    </data>
+    <data name="Soporte" xml:space="preserve">
+        <value>Soporte</value>
+    </data>
+    <data name="Home" xml:space="preserve">
+        <value>Home</value>
+    </data>
+    <data name="CancelandoSuCompra" xml:space="preserve">
+        <value>Cancelando su compra</value>
+    </data>
+</root>

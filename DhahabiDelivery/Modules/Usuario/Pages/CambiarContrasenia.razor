@@ -1,0 +1,34 @@
+﻿@using DhahabiDelivery.Modules.Shared.Components.Buttons
+@using DhahabiDelivery.Shared.Resources
+@using Microsoft.Extensions.Localization
+@inject NavigationManager Nm
+@inject IStringLocalizer<Idioma> Language
+@attribute [Route(Pages.CambiarContrasenia)]
+<section class="bg-background size-full flex items-center justify-center">
+    <Dialog
+        @ref="_dialog"
+        Title="@Language[Idioma.Error]"
+        Content="@_dialogBody">
+    </Dialog>
+    <EditForm class="text-center max-w-[400px] w-[80vw] flex gap-3 flex-col items-center" FormName="forgot-password" Model="@Model" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator/>
+        <h1 class="text-xl font-bold text-text">Cambiar Contraseña</h1>
+        <h3 class="text-gray-500 text-sm mb-6">@Language[Idioma.CambiarContraseniaMensaje]</h3>
+
+        @if (Model != null)
+        {
+            <TextInput Placeholder="@Language[Idioma.Contrasenia]" @bind-Value="@Model.Password" ValidationFor="() => Model.Password"/>
+        }
+        <ValidationSummary/>
+
+        <input id="submit" class="hidden" type="submit"/>
+        <label class="w-full" for="submit">
+            <LoadingButton ButtonState="_buttonState">
+                @if (_buttonState != LoadingButton.State.Loading)
+                {
+                    @Language[Idioma.CambiarContrasenia]
+                }
+            </LoadingButton>
+        </label>
+    </EditForm>
+</section>

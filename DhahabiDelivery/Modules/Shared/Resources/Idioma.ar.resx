@@ -1,0 +1,369 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="YaTienesUnaCuenta" xml:space="preserve">
+        <value>هل لديك حساب بالفعل؟</value>
+    </data>
+    <data name="Aceptamos" xml:space="preserve">
+        <value>نقبل</value>
+    </data>
+    <data name="AgregarAlCarrito" xml:space="preserve">
+        <value>أضف إلى السلة</value>
+    </data>
+    <data name="Apellidos" xml:space="preserve">
+        <value>اللقب</value>
+    </data>
+    <data name="AtencionAlCliente" xml:space="preserve">
+        <value>خدمة العملاء</value>
+    </data>
+    <data name="Ayuda" xml:space="preserve">
+        <value>مساعدة</value>
+    </data>
+    <data name="Bienvenido" xml:space="preserve">
+        <value>مرحبًا</value>
+    </data>
+    <data name="Buscar" xml:space="preserve">
+        <value>بحث</value>
+    </data>
+    <data name="CantidadDeExistencias" xml:space="preserve">
+        <value>كمية المخزون</value>
+    </data>
+    <data name="Carrito" xml:space="preserve">
+        <value>عربة التسوق</value>
+    </data>
+    <data name="Categorias" xml:space="preserve">
+        <value>الفئات</value>
+    </data>
+    <data name="CategoriasPopulares" xml:space="preserve">
+        <value>الفئات الشعبية</value>
+    </data>
+    <data name="CentroDeAyuda" xml:space="preserve">
+        <value>مركز المساعدة والأسئلة الشائعة</value>
+    </data>
+    <data name="Cerrar" xml:space="preserve">
+        <value>إغلاق</value>
+    </data>
+    <data name="CertificacionDeSeguridad" xml:space="preserve">
+        <value>شهادة الأمان</value>
+    </data>
+    <data name="ComoRastrearUnPedido" xml:space="preserve">
+        <value>كيف تتبع الطلب؟</value>
+    </data>
+    <data name="ComoRealizarUnPedido" xml:space="preserve">
+        <value>كيف تقوم بالطلب؟</value>
+    </data>
+    <data name="Compartir" xml:space="preserve">
+        <value>مشاركة</value>
+    </data>
+    <data name="Comprar" xml:space="preserve">
+        <value>شراء</value>
+    </data>
+    <data name="ComprarAhora" xml:space="preserve">
+        <value>اشتر الآن</value>
+    </data>
+    <data name="Confirmar" xml:space="preserve">
+        <value>تأكيد</value>
+    </data>
+    <data name="Contactanos" xml:space="preserve">
+        <value>اتصل بنا</value>
+    </data>
+    <data name="Contacto" xml:space="preserve">
+        <value>اتصال</value>
+    </data>
+    <data name="Contrasenia" xml:space="preserve">
+        <value>كلمة المرور</value>
+    </data>
+    <data name="ContraseniaMuyGrande" xml:space="preserve">
+        <value>كلمة المرور كبيرة جدًا</value>
+    </data>
+    <data name="CorreoElectronico" xml:space="preserve">
+        <value>البريد الإلكتروني</value>
+    </data>
+    <data name="CreaContrasenia" xml:space="preserve">
+        <value>أنشئ كلمة مرور</value>
+    </data>
+    <data name="CrearUnaCuenta" xml:space="preserve">
+        <value>إنشاء حساب</value>
+    </data>
+    <data name="CuponesYCodigosDeDescuento" xml:space="preserve">
+        <value>القسائم وأكواد الخصم</value>
+    </data>
+    <data name="DescubreTusGustos" xml:space="preserve">
+        <value>اكتشف أذواقك</value>
+    </data>
+    <data name="DescuentoParaPersonasDeLaTerceraEdad" xml:space="preserve">
+        <value>خصم لكبار السن</value>
+    </data>
+    <data name="DescuentoPorCupones" xml:space="preserve">
+        <value>خصم بالقسائم</value>
+    </data>
+    <data name="DescuentoPorOfertas" xml:space="preserve">
+        <value>خصم على العروض</value>
+    </data>
+    <data name="Direccion" xml:space="preserve">
+        <value>العنوان</value>
+    </data>
+    <data name="DireccionDeEnvio" xml:space="preserve">
+        <value>عنوان الشحن</value>
+    </data>
+    <data name="ElEmailYaExiste" xml:space="preserve">
+        <value>يوجد حساب بالفعل بهذا البريد الإلكتروني</value>
+    </data>
+    <data name="Eliminar" xml:space="preserve">
+        <value>حذف</value>
+    </data>
+    <data name="EmailNoConfirmado" xml:space="preserve">
+        <value>البريد الإلكتروني غير مؤكد</value>
+    </data>
+    <data name="EnviarEmail" xml:space="preserve">
+        <value>إرسال بريد إلكتروني</value>
+    </data>
+    <data name="Error" xml:space="preserve">
+        <value>خطأ</value>
+    </data>
+    <data name="ErrorDeConexion" xml:space="preserve">
+        <value>خطأ في الاتصال</value>
+    </data>
+    <data name="ErrorDesconocido" xml:space="preserve">
+        <value>خطأ غير معروف</value>
+    </data>
+    <data name="EscogeElMetodoDePago" xml:space="preserve">
+        <value>اختر طريقة الدفع</value>
+    </data>
+    <data name="EstasSeguroQueDeseasSalir" xml:space="preserve">
+        <value>هل أنت متأكد أنك تريد الخروج؟</value>
+    </data>
+    <data name="Fecha" xml:space="preserve">
+        <value>التاريخ</value>
+    </data>
+    <data name="Filtros" xml:space="preserve">
+        <value>الفلاتر</value>
+    </data>
+    <data name="HacerPedido" xml:space="preserve">
+        <value>تقديم الطلب</value>
+    </data>
+    <data name="HaOcurridoUnErrorDeConexion" xml:space="preserve">
+        <value>حدث خطأ في الاتصال</value>
+    </data>
+    <data name="HaOcurridoUnErrorDesconocido" xml:space="preserve">
+        <value>حدث خطأ غير معروف</value>
+    </data>
+    <data name="Hombre" xml:space="preserve">
+        <value>رجل</value>
+    </data>
+    <data name="IdDeOrden" xml:space="preserve">
+        <value>معرف الطلب</value>
+    </data>
+    <data name="InformacionDeLaEmpresa" xml:space="preserve">
+        <value>معلومات الشركة</value>
+    </data>
+    <data name="IntroduceCorreo" xml:space="preserve">
+        <value>أدخل بريدك الإلكتروني</value>
+    </data>
+    <data name="ListaDeCompra" xml:space="preserve">
+        <value>قائمة الشراء</value>
+    </data>
+    <data name="Login" xml:space="preserve">
+        <value>تسجيل الدخول</value>
+    </data>
+    <data name="MapaDelSitio" xml:space="preserve">
+        <value>خريطة الموقع</value>
+    </data>
+    <data name="MetodosDePagoDisponibles" xml:space="preserve">
+        <value>طرق الدفع المتاحة</value>
+    </data>
+    <data name="Mujer" xml:space="preserve">
+        <value>امرأة</value>
+    </data>
+    <data name="Idioma.fr" xml:space="preserve">
+        <value>الاسم</value>
+    </data>
+    <data name="NombreAplicacion" xml:space="preserve">
+        <value>المتجر الافتراضي</value>
+    </data>
+    <data name="NombreUsario" xml:space="preserve">
+        <value>اسم المستخدم</value>
+    </data>
+    <data name="NoTienesUnaCuenta" xml:space="preserve">
+        <value>ليس لديك حساب؟</value>
+    </data>
+    <data name="Notificaciones" xml:space="preserve">
+        <value>الإشعارات</value>
+    </data>
+    <data name="Nuevo" xml:space="preserve">
+        <value>جديد!</value>
+    </data>
+    <data name="NumeroDeTelefono" xml:space="preserve">
+        <value>رقم الهاتف</value>
+    </data>
+    <data name="OfertasEspeciales" xml:space="preserve">
+        <value>العروض الخاصة</value>
+    </data>
+    <data name="OfertasSemanales" xml:space="preserve">
+        <value>العروض الأسبوعية</value>
+    </data>
+    <data name="OlvidasteTuContrasenia" xml:space="preserve">
+        <value>هل نسيت كلمة المرور؟</value>
+    </data>
+    <data name="ParaCompletarElCambioContrasenia" xml:space="preserve">
+        <value>لإكمال تغيير كلمة المرور</value>
+    </data>
+    <data name="ParaCompletarElInicioDeSesion" xml:space="preserve">
+        <value>لإكمال تسجيل الدخول</value>
+    </data>
+    <data name="ParaCompletarElRegistro" xml:space="preserve">
+        <value>لإكمال عملية تسجيل حسابك</value>
+    </data>
+    <data name="Pedidos" xml:space="preserve">
+        <value>الطلبات</value>
+    </data>
+    <data name="PoliticaDeDevolucionYReembolso" xml:space="preserve">
+        <value>سياسة الإرجاع والاسترداد</value>
+    </data>
+    <data name="PoliticaDeEnvios" xml:space="preserve">
+        <value>سياسة الشحن</value>
+    </data>
+    <data name="PoliticaDePropiedadIntelectual" xml:space="preserve">
+        <value>سياسة الملكية الفكرية</value>
+    </data>
+    <data name="PorfavorCreaUnaCuenta" xml:space="preserve">
+        <value>للانضمام إلى مجتمعنا، يرجى التسجيل بمعلوماتك الشخصية</value>
+    </data>
+    <data name="PorfavorIniciaSession" xml:space="preserve">
+        <value>يرجى تسجيل الدخول بمعلوماتك الشخصية للبقاء على اتصال معنا</value>
+    </data>
+    <data name="Precio" xml:space="preserve">
+        <value>السعر</value>
+    </data>
+    <data name="PrecioOriginal" xml:space="preserve">
+        <value>السعر الأصلي</value>
+    </data>
+    <data name="Privacidad" xml:space="preserve">
+        <value>الخصوصية</value>
+    </data>
+    <data name="ProcesandoSuCompra" xml:space="preserve">
+        <value>جاري معالجة الشراء …</value>
+    </data>
+    <data name="Productos" xml:space="preserve">
+        <value>المنتجات</value>
+    </data>
+    <data name="ProductosPopulares" xml:space="preserve">
+        <value>المنتجات الشعبية</value>
+    </data>
+    <data name="ProductosSimilares" xml:space="preserve">
+        <value>المنتجات المشابهة</value>
+    </data>
+    <data name="ProteccionDeCompras" xml:space="preserve">
+        <value>حماية المشتريات</value>
+    </data>
+    <data name="PuntosGanados" xml:space="preserve">
+        <value>النقاط المكتسبة</value>
+    </data>
+    <data name="Recargar" xml:space="preserve">
+        <value>إعادة الشحن</value>
+    </data>
+    <data name="Recomendados" xml:space="preserve">
+        <value>الموصى بها</value>
+    </data>
+    <data name="ReenviarEmail" xml:space="preserve">
+        <value>إعادة إرسال البريد الإلكتروني</value>
+    </data>
+    <data name="Registrarse" xml:space="preserve">
+        <value>التسجيل</value>
+    </data>
+    <data name="RepetirContrasenia" xml:space="preserve">
+        <value>تكرار كلمة المرور</value>
+    </data>
+    <data name="ReportarActividadSospechosa" xml:space="preserve">
+        <value>الإبلاغ عن نشاط مشبوه</value>
+    </data>
+    <data name="ResumenDelPedido" xml:space="preserve">
+        <value>ملخص الطلب</value>
+    </data>
+    <data name="Salir" xml:space="preserve">
+        <value>خروج</value>
+    </data>
+    <data name="SeAhorra" xml:space="preserve">
+        <value>يتم التوفير</value>
+    </data>
+    <data name="SiguenosEnRedesSociales" xml:space="preserve">
+        <value>تابعنا على وسائل التواصل الاجتماعي</value>
+    </data>
+    <data name="Subtotal" xml:space="preserve">
+        <value>المجموع الفرعي</value>
+    </data>
+    <data name="SuCompraHaSidoCompletada" xml:space="preserve">
+        <value>تم إكمال عملية الشراء!</value>
+    </data>
+    <data name="SuEmailNoHaSidoConfirmado" xml:space="preserve">
+        <value>لم يتم تأكيد بريدك الإلكتروني</value>
+    </data>
+    <data name="TeEnviamosUnEmailA" xml:space="preserve">
+        <value>أرسلنا لك بريدًا إلكترونيًا إلى</value>
+    </data>
+    <data name="TeEnviaremosUnEmailA" xml:space="preserve">
+        <value>سوف نرسل لك بريدًا إلكترونيًا إلى</value>
+    </data>
+    <data name="TerminosDeUso" xml:space="preserve">
+        <value>شروط الاستخدام</value>
+    </data>
+    <data name="TerminosYCondiciones" xml:space="preserve">
+        <value>الشروط والأحكام</value>
+    </data>
+    <data name="Tienda" xml:space="preserve">
+        <value>المتجر</value>
+    </data>
+    <data name="Todos" xml:space="preserve">
+        <value>الجميع</value>
+    </data>
+    <data name="TokenIncorrecto" xml:space="preserve">
+        <value>رمز غير صحيح</value>
+    </data>
+    <data name="Total" xml:space="preserve">
+        <value>الإجمالي</value>
+    </data>
+    <data name="TusRetirosYAlertasDeSeguridad" xml:space="preserve">
+        <value>عمليات السحب والتنبيهات الأمنية الخاصة بك</value>
+    </data>
+    <data name="Usuario" xml:space="preserve">
+        <value>المستخدم</value>
+    </data>
+    <data name="UsuarioOContraseniaIncorrectos" xml:space="preserve">
+        <value>اسم المستخدم أو كلمة المرور غير صحيحة</value>
+    </data>
+    <data name="Valoracion" xml:space="preserve">
+        <value>التقييم</value>
+    </data>
+    <data name="VerificaTuCorreoelectronico" xml:space="preserve">
+        <value>تحقق من بريدك الإلكتروني</value>
+    </data>
+    <data name="VerMas" xml:space="preserve">
+        <value>عرض المزيد</value>
+    </data>
+    <data name="TusPedidos" xml:space="preserve">
+        <value>طلباتك</value>
+    </data>
+    <data name="Perfil" xml:space="preserve">
+        <value>ملف شخصي</value>
+    </data>
+    <data name="Direcciones" xml:space="preserve">
+        <value>اتجاهات</value>
+    </data>
+    <data name="Idiomas" xml:space="preserve">
+        <value>لغة</value>
+    </data>
+</root>

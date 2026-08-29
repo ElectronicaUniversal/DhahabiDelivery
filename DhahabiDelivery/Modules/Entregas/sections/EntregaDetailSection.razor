@@ -1,0 +1,95 @@
+@using DhahabiDelivery.Modules.Shared.Components
+@using GoogleMapsComponents.Maps
+@inherits DhahabiDelivery.Modules.Shared.ViewModelComponent<DhahabiDelivery.Modules.Entregas.ViewModels.EntregasViewModel>
+
+<div class="flex flex-col h-full w-full bg-card-background text-text">
+    <!-- Header flotante con información clave y costo prominente -->
+    <header
+        class="bg-card-background border-b border-divider shadow-md p-3 z-20 flex gap-2 items-center justify-between">
+        <div class="flex flex-1 truncate items-center">
+            <h2 class="font-bold text-lg">@ViewModel.EntregaSeleccionada?.NombreCliente</h2>
+        </div>
+
+        <!-- Costo de envío destacado -->
+        <div class="flex items-center flex-shrink-0">
+            <div class="bg-primary-light border border-primary rounded-lg px-3 py-1 flex items-center">
+                <span class="text-primary font-bold text-lg">
+                    <PriceContainer Moneda="@ViewModel.EntregaSeleccionada?.CodigoMoneda"
+                                    Price="@(ViewModel.EntregaSeleccionada?.Total ?? 0)"/>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegación mejorada - botones más grandes y fáciles de tocar -->
+    <div class="grid grid-cols-2 border-b border-divider">
+        <button @onclick="@(() => ActiveTab = "map")"
+                class="@(ActiveTab == "map" ? "bg-primary-light text-primary border-b-2 border-primary" : "text-text bg-card-background") py-3 flex gap-2 items-center justify-center font-medium transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-map mb-1"
+                 viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.5.5 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103M10 1.91l-4-.8v12.98l4 .8zm1 12.98 4-.8V1.11l-4 .8zm-6-.8V1.11l-4 .8v12.98z"/>
+            </svg>
+            <span>
+            Mapa
+            </span>
+        </button>
+        <button @onclick="@(() => ActiveTab = "details")"
+                class="@(ActiveTab == "details" ? "bg-primary-light text-primary border-b-2 border-primary" : "text-text bg-card-background") py-3 flex gap-2 items-center justify-center font-medium transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-receipt mb-1"
+                 viewBox="0 0 16 16">
+                <path
+                    d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27m.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0z"/>
+                <path
+                    d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"/>
+            </svg>
+            <span>
+                 Detalles
+            </span>
+        </button>
+    </div>
+
+    <!-- Contenedor principal con animación -->
+    <div class="flex-1 relative overflow-hidden">
+        <!-- Vista de mapa -->
+        <div
+            class="absolute inset-0 transition-all duration-300 transform @(ActiveTab == "map" ? "translate-x-0" : "-translate-x-full")">
+            <MapSection/>
+        </div>
+
+        <!-- Vista de detalles -->
+        <div
+            class="absolute inset-0 transition-all duration-300 transform @(ActiveTab == "details" ? "translate-x-0" : "translate-x-full")">
+            <MainSection/>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public required int Id { get; set; }
+
+    private string ActiveTab { get; set; } = "map";
+    private readonly string _state = string.Empty;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender || _state == ConstantesEstadoRepartidor.ENTREGANDO) return;
+        try
+        {
+            var entregas = ViewModel.EntregasAsignadas;
+            ViewModel.EntregaSeleccionada = entregas.FirstOrDefault(e => e.Id.Equals(Id));
+            var entregaSeleccionada = ViewModel.EntregaSeleccionada;
+            if (entregaSeleccionada == null) return;
+            var coordenadas = entregaSeleccionada.Coordenadas.Split(",");
+            var lat = Convert.ToDecimal(coordenadas[0]);
+            var lng = Convert.ToDecimal(coordenadas[1]);
+            ViewModel.MapOptions.Center = new LatLngLiteral(lat, lng);
+        }
+        catch (Exception e)
+        {
+            //ignored
+        }
+    }
+
+}

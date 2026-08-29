@@ -1,0 +1,87 @@
+/* Animaciones para MainSection */
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animación para producto */
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-enter {
+    animation: fadeSlideIn 0.4s ease-out forwards;
+}
+
+/* Tiempos de retraso escalonados para productos */
+.product-stagger-0 {
+    animation-delay: 0ms;
+}
+
+.product-stagger-1 {
+    animation-delay: 50ms;
+}
+
+.product-stagger-2 {
+    animation-delay: 100ms;
+}
+
+.product-stagger-3 {
+    animation-delay: 150ms;
+}
+
+.product-stagger-4 {
+    animation-delay: 200ms;
+}
+
+.product-stagger-5 {
+    animation-delay: 250ms;
+}
+
+/* Transiciones para selección de vendedor */
+.vendedor-item {
+    transition: all 0.3s ease-in-out;
+}
+
+.vendedor-item img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.vendedor-item img:hover {
+    transform: scale(1.05);
+}
+
+.vendedor-item.selected {
+    border: 1px solid var(--primary);
+    background-color: rgba(138, 92, 245, 0.08);
+}
+
+.vendedor-item:hover:not(.selected) {
+    background-color: rgba(138, 92, 245, 0.03);
+}
+
+/* Transiciones para productos */
+.producto-item {
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.producto-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}

@@ -1,0 +1,30 @@
+﻿@using System.ComponentModel.DataAnnotations
+@inherits InputText
+
+<div class="text-input">
+    <div class="form-control-validation">
+        <ValidationMessage For="@ValidationFor"/>
+    </div>
+    <div class="input-field">
+        <InputText
+            type="@(!_showPassword && InputType == DataType.Password ? "password" : "")"
+            class="form-input bg-[#dcdcdc] dark:bg-[#282828]"
+            full="@(!string.IsNullOrEmpty(CurrentValue))"
+            @bind-Value="@CurrentValue"/>
+        <label>@Placeholder</label>
+        @if (InputType == DataType.Password)
+        {
+            <div class="password-toggle" @onclick=@TogglePassword>
+                @if (_showPassword)
+                {
+                    <IconoHidePassword/>
+                }
+                else
+                {
+                    <IconoShowPassord/>
+                }
+            </div>
+            <label>@Placeholder</label>
+        }
+    </div>
+</div>

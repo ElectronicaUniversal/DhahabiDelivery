@@ -1,0 +1,171 @@
+@inject IJSRuntime JsRuntime
+@using DhahabiDelivery.Modules.Entregas
+@using DhahabiDelivery.Modules.Entregas.Exceptions
+@inherits ViewModelComponent<DhahabiDelivery.Modules.Entregas.ViewModels.EntregasViewModel>
+
+<div class="delivery-status-selector">
+    <!-- Status Toggle Switch -->
+    <div class="status-container">
+        <div class="status-info">
+            <div class="status-icon @(IsAvailable ? "available" : "unavailable")">
+                @if (IsAvailable)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                         viewBox="0 0 16 16">
+                        <path
+                            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                    </svg>
+                }
+                else
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                         viewBox="0 0 16 16">
+                        <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                }
+            </div>
+            <div class="status-text">
+                <h3 class="status-title dark:text-gray-200">Estado del Delivery</h3>
+                <p class="status-description dark:text-gray-400">@(IsAvailable ? "Disponible para entregas" : "No disponible")</p>
+            </div>
+        </div>
+
+        <!-- Toggle Switch -->
+        <div class="toggle-switch-container">
+            <button @onclick="ToggleAvailability"
+                    disabled="@_isLoading"
+                    class="toggle-switch @(IsAvailable ? "enabled" : "disabled") @(_isLoading ? "loading" : "")">
+                <div class="toggle-slider">
+                    @if (_isLoading)
+                    {
+                        <div class="loading-spinner"></div>
+                    }
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Additional Status Info -->
+    <div class="status-details">
+        @if (IsAvailable)
+        {
+            <div class="status-feature">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                </svg>
+                <span>Ubicación activa</span>
+            </div>
+            <div class="status-feature">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path
+                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+                <span>Listo para recibir órdenes</span>
+            </div>
+        }
+        else
+        {
+            <div class="status-feature inactive">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M6.5 1A1.5 1.5 0 0 0 5 2.5v3A1.5 1.5 0 0 0 6.5 7h3A1.5 1.5 0 0 0 11 5.5v-3A1.5 1.5 0 0 0 9.5 1h-3zM6 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-3z"/>
+                    <path
+                        d="M6 7.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1h1.5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H6z"/>
+                </svg>
+                <span>Servicios desactivados</span>
+            </div>
+        }
+    </div>
+
+    <!-- GPS Error Dialog -->
+    @if (_showGpsErrorDialog)
+    {
+        <div class="dialog-overlay">
+            <div class="dialog-container">
+                <div class="dialog-header">
+                    <h3>Se requiere GPS</h3>
+                </div>
+                <div class="dialog-content">
+                    <p>@_errorMessage</p>
+                </div>
+                <div class="dialog-actions">
+                    <button @onclick="OpenGpsSettings" class="btn-primary">Abrir Configuración</button>
+                    <button @onclick="CloseGpsErrorDialog" class="btn-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public EventCallback<bool> OnStatusChanged { get; set; }
+
+    private bool _isLoading;
+    private bool _showGpsErrorDialog;
+    private string _errorMessage = string.Empty;
+
+    private bool IsAvailable => ViewModel.State is ConstantesEstadoRepartidor.DISPONIBLE or ConstantesEstadoRepartidor.ASIGNADO or ConstantesEstadoRepartidor.ENTREGANDO;
+
+    private async Task ToggleAvailability()
+    {
+        if (_isLoading) return;
+
+        try
+        {
+            _isLoading = true;
+            StateHasChanged();
+
+            var newStatus = !IsAvailable;
+            await ViewModel.CambiarDisponibilidadAsync(newStatus);
+
+            // Notify parent component
+            if (OnStatusChanged.HasDelegate)
+            {
+                await OnStatusChanged.InvokeAsync(newStatus);
+            }
+        }
+        catch (GpsNotEnabledException ex)
+        {
+            _errorMessage = ex.Message;
+            _showGpsErrorDialog = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al cambiar estado: {ex.Message}");
+            // Mostrar mensaje genérico de error
+            await JsRuntime.InvokeVoidAsync("alert", $"Error: {ex.Message}");
+        }
+        finally
+        {
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private void CloseGpsErrorDialog()
+    {
+        _showGpsErrorDialog = false;
+        StateHasChanged();
+    }
+
+    private async Task OpenGpsSettings()
+    {
+        _showGpsErrorDialog = false;
+        StateHasChanged();
+
+        // Abrir la configuración del GPS
+#if ANDROID
+        await GpsUtils.RequestEnableGpsAsync();
+#endif
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        // Initialize current status if needed
+        await ViewModel.ObtenerEstadoRepartidorAsync();
+    }
+
+}

@@ -1,0 +1,27 @@
+﻿@using DhahabiDelivery.Configuration.Transition
+@using DhahabiDelivery.Modules.Auth.Components
+@using DhahabiDelivery.Modules.Auth.Pages
+@using DhahabiDelivery.Modules.Entregas.Pages
+@using DhahabiDelivery.Modules.Layout
+@using Microsoft.AspNetCore.Components.Authorization
+<CascadingAuthenticationState>
+    <ViewTransitionRouter AppAssembly="@typeof(MauiProgram).Assembly"
+                          AdditionalAssemblies="new[] { typeof(PaginaEntregas).Assembly }">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <RedirectToLogin/>
+                </NotAuthorized>
+                <Authorizing>
+                    <AuthorizingView/>
+                </Authorizing>
+            </AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </ViewTransitionRouter>
+</CascadingAuthenticationState>

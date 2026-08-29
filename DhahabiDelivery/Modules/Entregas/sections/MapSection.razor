@@ -1,0 +1,183 @@
+@using DhahabiDelivery.Modules.Shared.Components.Buttons
+@using GoogleMapsComponents
+@using GoogleMapsComponents.Maps
+@inherits DhahabiDelivery.Modules.Shared.ViewModelComponent<DhahabiDelivery.Modules.Entregas.ViewModels.EntregasViewModel>
+@inject NavigationManager Nm
+
+<div class="relative h-full w-full">
+    <!-- Map container -->
+    <div class="h-full w-full">
+        <ErrorBoundary>
+            <AdvancedGoogleMap @ref="_map1"
+                               Height="100%"
+                               Id="map1"
+                               Options="@ViewModel.MapOptions"
+                               OnAfterInit="AfterMapRender">
+                <!-- Marcador de destino de entrega -->
+                <MarkerComponent
+                    @key="@ViewModel.MarkerData.Id"
+                    Lat="@ViewModel.MarkerData.Lat"
+                    Lng="@ViewModel.MarkerData.Lng">
+                    <div class="location-svg">
+                        <LocationSvg Url="/imagenes/profile.svg"/>
+                    </div>
+                </MarkerComponent>
+
+                <!-- Marcador de posición actual del repartidor (solo visible cuando hay posición) -->
+                @if (ViewModel is { DeliveryLocation: not null, State: ConstantesEstadoRepartidor.ENTREGANDO })
+                {
+                    <MarkerComponent
+                        @key="@ViewModel.DeliveryMarketData.Id"
+                        Lat="@ViewModel.DeliveryMarketData.Lat"
+                        Lng="@ViewModel.DeliveryMarketData.Lng">
+                        <div class="delivery-location-marker">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#E53935"
+                                 viewBox="0 0 16 16">
+                                <path
+                                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            </svg>
+                        </div>
+                    </MarkerComponent>
+                }
+            </AdvancedGoogleMap>
+        </ErrorBoundary>
+    </div>
+
+    <!-- Customer info card -->
+    <div
+        class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-background rounded-xl shadow-lg p-3 w-11/12 max-w-md z-10">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold line-clamp-2 text-text overflow-hidden text-ellipsis">@ViewModel.EntregaSeleccionada?.DireccionEntrega</h3>
+                    <p class="text-xs text-gray-800 dark:text-gray-300">@ViewModel.EntregaSeleccionada?.TelefonoCliente</p>
+                </div>
+            </div>
+            <div class="flex-1 flex justify-end">
+                <div class="flex justify-center w-fit iniciar">
+                    <LoadingButton ButtonState="_loadingButtonState" OnClick="Iniciar">
+                        @if (_error)
+                        {
+                            @("Reintentar")
+                        }
+                        else
+                        {
+                            @(ViewModel.State != ConstantesEstadoRepartidor.ENTREGANDO ? "Iniciar" : "Finalizar")
+                        }
+                    </LoadingButton>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading indicator -->
+    @if (ViewModel.LoadingMap)
+    {
+        <div class="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+        </div>
+    }
+
+    <!-- Dialog for confirmation -->
+    <Dialog @ref="_dialogRef"
+            Accept="FinalizarEntrega"
+            Title="@_dialogTitle"
+            Content="@_errorMessage">
+    </Dialog>
+</div>
+
+@code {
+    AdvancedGoogleMap? _map1;
+    private Dialog _dialogRef = null!;
+    private string _dialogTitle = string.Empty;
+    private string _errorMessage = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        // Inicializar el ViewModel para que se suscriba a eventos de ubicación
+        ViewModel.Initialize();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (ViewModel.MapOptions != null)
+        {
+            ViewModel.MapOptions.Center = ViewModel.Center;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Limpiar recursos y desuscribirse de eventos
+        ViewModel.Cleanup();
+        base.Dispose();
+    }
+
+    private async Task FinalizarEntrega()
+    {
+        if (_dialogTitle != "Advertencia") return;
+        await ViewModel.FinalizarEntrega();
+        Nm.NavigateTo(Pages.Home, false);
+    }
+
+    private async Task ShowFinalizarEntregaDialog()
+    {
+        _dialogTitle = "Advertencia";
+        _errorMessage = "¿Estás seguro de que finalizaste tu entrega?";
+        await _dialogRef.Open();
+    }
+
+    private LoadingButton.State _loadingButtonState = LoadingButton.State.Normal;
+    private bool _error;
+
+    private async Task Iniciar()
+    {
+        if (_loadingButtonState == LoadingButton.State.Loading) return;
+        try
+        {
+            _error = false;
+            _loadingButtonState = LoadingButton.State.Loading;
+            var estado = await ViewModel.ObtenerEstadoRepartidorAsync();
+            if (estado == ConstantesEstadoRepartidor.ENTREGANDO)
+            {
+                await ShowFinalizarEntregaDialog();
+                return;
+            }
+
+            if (estado != ConstantesEstadoRepartidor.ASIGNADO && estado != ConstantesEstadoRepartidor.DISPONIBLE) return;
+            await ViewModel.IniciarEntrega();
+            _loadingButtonState = LoadingButton.State.Success;
+        }
+        catch (Exception e)
+        {
+            _error = true;
+            _loadingButtonState = LoadingButton.State.Error;
+            _errorMessage = e.Message;
+            _dialogTitle = "Ha ocurrido un error";
+            await _dialogRef.Open();
+        }
+        finally
+        {
+            _loadingButtonState = LoadingButton.State.Normal;
+            StateHasChanged();
+        }
+    }
+
+    private void AfterMapRender()
+    {
+        ViewModel.LoadingMap = false;
+        var center = ViewModel.MapOptions?.Center;
+        if (center == null) return;
+        ViewModel.Marker = center;
+    }
+
+}
