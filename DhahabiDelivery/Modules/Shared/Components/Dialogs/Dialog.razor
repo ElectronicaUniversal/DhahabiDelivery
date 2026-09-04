@@ -5,11 +5,20 @@
 <dialog @ref="_dialog" class="flex inset-0 fixed items-center max-w-full max-h-full duration-150 justify-center size-full bg-transparent" @onclick="Close" aria-modal="true">
     <form class="select-none m-auto w-[80vw] shadow-xl max-w-[400px] bg-background dark:bg-surface dark:bg-[#292929] text-center p-4 rounded-xl" method="dialog" @onclick:stopPropagation>
         <h1 class="font-bold text-text text-xl mb-3">@Title</h1>
-        <p class="text-gray-500 dark:text-gray-300">@Content</p>
+        @if (ChildContent != null)
+        {
+            <div class="text-left">
+                @ChildContent
+            </div>
+        }
+        else
+        {
+            <p class="text-gray-500 dark:text-gray-300">@Content</p>
+        }
         <hr class="mt-4 border-t-gray-300">
         <div class="flex font-semibold gap-3 mt-4">
-            <button type="reset" @onclick="@Close" class="flex-1 p-2 rounded-md text-primary transition-all cursor-pointer hover:bg-primary-light">Cancelar</button>
-            <button @onclick="Accept" class="flex-1 p-2 rounded-md bg-primary transition-all hover:bg-primary-dark cursor-pointer text-white">Aceptar</button>
+            <button type="reset" @onclick="@Close" class="flex-1 p-2 rounded-md text-primary transition-all cursor-pointer hover:bg-primary-light">@CancelLabel</button>
+            <button @onclick="Accept" disabled="@AcceptDisabled" class="flex-1 p-2 rounded-md bg-primary transition-all hover:bg-primary-dark cursor-pointer text-white disabled:opacity-50 disabled:cursor-not-allowed">@AcceptLabel</button>
         </div>
     </form>
 </dialog>
@@ -17,6 +26,10 @@
 @code {
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public string Content { get; set; } = string.Empty;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string AcceptLabel { get; set; } = "Aceptar";
+    [Parameter] public string CancelLabel { get; set; } = "Cancelar";
+    [Parameter] public bool AcceptDisabled { get; set; }
 
     [Parameter] public EventCallback Accept { get; set; }
     [Parameter] public EventCallback Cancel { get; set; }

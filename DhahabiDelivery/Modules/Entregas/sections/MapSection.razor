@@ -20,7 +20,7 @@
 
     <!-- Customer info card -->
     <div
-        class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-background rounded-xl shadow-lg p-3 w-11/12 max-w-md z-10">
+        class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-background rounded-xl shadow-lg p-3 w-11/12 max-w-md z-[1100]">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-2">
                 <div class="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center">
@@ -54,7 +54,7 @@
     <!-- Loading indicator -->
     @if (ViewModel.LoadingMap)
     {
-        <div class="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+        <div class="absolute inset-0 z-[1100] bg-white bg-opacity-70 flex items-center justify-center">
             <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
         </div>
     }
