@@ -2,32 +2,16 @@ name: Android Release Build
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "fix/delivery-app" ]
   workflow_dispatch:
 
 jobs:
   build-android:
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, dhahabi-vps ]
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 9.0.x
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'microsoft'
-          java-version: '17'
-
-      - name: Install .NET MAUI Workloads
-        run: dotnet workload restore ./DhahabiDelivery/DhahabiDelivery.csproj
 
       - name: Restore dependencies
         run: dotnet restore ./DhahabiDelivery/DhahabiDelivery.csproj
