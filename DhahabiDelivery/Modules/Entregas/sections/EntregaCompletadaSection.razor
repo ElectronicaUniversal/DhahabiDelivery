@@ -1,17 +1,12 @@
-@using GoogleMapsComponents
-@using GoogleMapsComponents.Maps
+@using DhahabiDelivery.Modules.Shared.Components
+@using DhahabiDelivery.Modules.Shared.Maps
 @inherits DhahabiDelivery.Modules.Shared.ViewModelComponent<DhahabiDelivery.Modules.Entregas.ViewModels.EntregasViewModel>
 
 <Dialog @ref="_dialogRef" Title="Finalizar Entrega" Content="¿Estás seguro de finalizar esta entrega?" Accept="FinalizarEntrega"></Dialog>
 <section class="size-full bg-surface flex items-center flex-col justify-center">
     <section class="flex-1">
-        <AdvancedGoogleMap Height="100%" Id="map1" Options="@ViewModel.MapOptions" OnAfterInit="AfterMapRender">
-            <MarkerComponent Lat="@ViewModel.Marker.Lat" Lng="@ViewModel.Marker.Lng">
-                <div class="location-svg">
-                    <LocationSvg Url="/imagenes/profile.svg"/>
-                </div>
-            </MarkerComponent>
-        </AdvancedGoogleMap>
+        <LeafletMap @ref="_map1" Height="100%" Id="map1" Center="@ViewModel.MapOptions.Center" Zoom="@ViewModel.MapOptions.Zoom" OnAfterInit="AfterMapRender">
+        </LeafletMap>
         <button @onclick="ShowFinalizarEntregaDialog" class="absolute top-2 right-2 bg-primary hover:bg-primary/90 pointer text-white rounded-md px-6 py-1">
             Finalizar Entrega
         </button>
@@ -20,6 +15,8 @@
 </section>
 
 @code {
+    private const string MarkerKey = "destination";
+    private LeafletMap? _map1;
     private Dialog _dialogRef;
 
     private async Task ShowFinalizarEntregaDialog()
@@ -36,6 +33,8 @@
     {
         ViewModel.LoadingMap = false;
         ViewModel.Marker = ViewModel.MapOptions.Center;
+        if (_map1 != null)
+            await _map1.AddOrUpdateMarker(MarkerKey, ViewModel.Marker, MapMarkerIcons.LocationPin("/imagenes/profile.svg"));
     }
 
 }

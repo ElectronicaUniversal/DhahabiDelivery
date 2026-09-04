@@ -7,7 +7,7 @@ using DhahabiDelivery.Modules.Entregas.Exceptions;
 using DhahabiDelivery.Modules.Entregas.Services;
 using DhahabiDelivery.Modules.Shared.Components.Buttons;
 using DhahabiDelivery.Modules.Shared.Services;
-using GoogleMapsComponents.Maps;
+using DhahabiDelivery.Modules.Shared.Maps;
 using Mensajeria;
 
 namespace DhahabiDelivery.Modules.Entregas.ViewModels;
@@ -32,9 +32,7 @@ public partial class EntregasViewModel(
 
     [ObservableProperty] private MapOptions _mapOptions = new()
     {
-        Zoom = 14,
-        MapId = "e5asd595q2121",
-        MapTypeId = MapTypeId.Roadmap
+        Zoom = 14
     };
 
     [ObservableProperty] private LatLngLiteral _marker = new();

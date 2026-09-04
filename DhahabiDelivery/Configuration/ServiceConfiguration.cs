@@ -7,7 +7,6 @@ using DhahabiDelivery.Modules.Layout;
 using DhahabiDelivery.Modules.Shared;
 using DhahabiDelivery.Modules.Shared.Services;
 using FrontentCompartido.Modules.Shared.Services;
-using GoogleMapsComponents;
 using Microsoft.AspNetCore.Components.Authorization;
 
 namespace DhahabiDelivery.Configuration;
@@ -24,7 +23,6 @@ public static class ServiceConfiguration
         services.AddAuthorizationCore();
         services.AddScoped<AuthService>();
         services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<AuthService>());
-        services.AddBlazorGoogleMaps("AIzaSyAbvNkYW7heICE8HC96_R_UyW-BSdkMDnI");
         services.AddScoped<HttpHelper>();
         services.AddScoped<IImageService, ImageService>();
         

@@ -1,7 +1,7 @@
 using System.Globalization;
 using DhahabiDelivery.Configuration;
 using DhahabiDelivery.Modules.Shared.Services;
-using GoogleMapsComponents.Maps;
+using DhahabiDelivery.Modules.Shared.Maps;
 using Mensajeria;
 
 namespace DhahabiDelivery.Modules.Entregas.Services;

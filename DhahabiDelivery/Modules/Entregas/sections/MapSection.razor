@@ -1,6 +1,6 @@
+@using DhahabiDelivery.Modules.Shared.Components
 @using DhahabiDelivery.Modules.Shared.Components.Buttons
-@using GoogleMapsComponents
-@using GoogleMapsComponents.Maps
+@using DhahabiDelivery.Modules.Shared.Maps
 @inherits DhahabiDelivery.Modules.Shared.ViewModelComponent<DhahabiDelivery.Modules.Entregas.ViewModels.EntregasViewModel>
 @inject NavigationManager Nm
 
@@ -8,39 +8,13 @@
     <!-- Map container -->
     <div class="h-full w-full">
         <ErrorBoundary>
-            <AdvancedGoogleMap @ref="_map1"
-                               Height="100%"
-                               Id="map1"
-                               Options="@ViewModel.MapOptions"
-                               OnAfterInit="AfterMapRender">
-                <!-- Marcador de destino de entrega -->
-                <MarkerComponent
-                    @key="@ViewModel.MarkerData.Id"
-                    Lat="@ViewModel.MarkerData.Lat"
-                    Lng="@ViewModel.MarkerData.Lng">
-                    <div class="location-svg">
-                        <LocationSvg Url="/imagenes/profile.svg"/>
-                    </div>
-                </MarkerComponent>
-
-                <!-- Marcador de posición actual del repartidor (solo visible cuando hay posición) -->
-                @if (ViewModel is { DeliveryLocation: not null, State: ConstantesEstadoRepartidor.ENTREGANDO })
-                {
-                    <MarkerComponent
-                        @key="@ViewModel.DeliveryMarketData.Id"
-                        Lat="@ViewModel.DeliveryMarketData.Lat"
-                        Lng="@ViewModel.DeliveryMarketData.Lng">
-                        <div class="delivery-location-marker">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#E53935"
-                                 viewBox="0 0 16 16">
-                                <path
-                                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
-                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                            </svg>
-                        </div>
-                    </MarkerComponent>
-                }
-            </AdvancedGoogleMap>
+            <LeafletMap @ref="_map1"
+                        Height="100%"
+                        Id="map1"
+                        Center="@ViewModel.MapOptions.Center"
+                        Zoom="@ViewModel.MapOptions.Zoom"
+                        OnAfterInit="AfterMapRender">
+            </LeafletMap>
         </ErrorBoundary>
     </div>
 
@@ -94,7 +68,10 @@
 </div>
 
 @code {
-    AdvancedGoogleMap? _map1;
+    LeafletMap? _map1;
+    private const string DestinationMarkerKey = "destination";
+    private const string DeliveryMarkerKey = "delivery-position";
+    private bool _showingDeliveryMarker;
     private Dialog _dialogRef = null!;
     private string _dialogTitle = string.Empty;
     private string _errorMessage = string.Empty;
@@ -107,12 +84,14 @@
         ViewModel.Initialize();
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async void OnAfterRender(bool firstRender)
     {
         if (ViewModel.MapOptions != null)
         {
             ViewModel.MapOptions.Center = ViewModel.Center;
         }
+
+        await SyncMarkersAsync();
     }
 
     public void Dispose()
@@ -172,12 +151,35 @@
         }
     }
 
-    private void AfterMapRender()
+    private async Task AfterMapRender()
     {
         ViewModel.LoadingMap = false;
         var center = ViewModel.MapOptions?.Center;
-        if (center == null) return;
-        ViewModel.Marker = center;
+        if (center != null) ViewModel.Marker = center;
+        await SyncMarkersAsync();
+    }
+
+    private async Task SyncMarkersAsync()
+    {
+        if (_map1 == null) return;
+
+        await _map1.AddOrUpdateMarker(DestinationMarkerKey,
+            new LatLngLiteral(ViewModel.MarkerData.Lat, ViewModel.MarkerData.Lng),
+            MapMarkerIcons.LocationPin("/imagenes/profile.svg"));
+
+        var showDeliveryMarker = ViewModel is { DeliveryLocation: not null, State: ConstantesEstadoRepartidor.ENTREGANDO };
+        if (showDeliveryMarker)
+        {
+            await _map1.AddOrUpdateMarker(DeliveryMarkerKey,
+                new LatLngLiteral(ViewModel.DeliveryMarketData.Lat, ViewModel.DeliveryMarketData.Lng),
+                MapMarkerIcons.DeliveryPosition);
+            _showingDeliveryMarker = true;
+        }
+        else if (_showingDeliveryMarker)
+        {
+            await _map1.RemoveMarker(DeliveryMarkerKey);
+            _showingDeliveryMarker = false;
+        }
     }
 
 }

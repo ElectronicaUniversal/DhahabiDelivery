@@ -1,0 +1,90 @@
+@using DhahabiDelivery.Modules.Shared.Maps
+@implements IAsyncDisposable
+@inject IJSRuntime JsRuntime
+
+<div id="@Id" style="height: @Height; width: 100%;"></div>
+
+@code {
+    [Parameter] public string Id { get; set; } = "leaflet-map";
+    [Parameter] public string Height { get; set; } = "100%";
+    [Parameter] public LatLngLiteral? Center { get; set; }
+    [Parameter] public int Zoom { get; set; } = 14;
+    [Parameter] public EventCallback OnAfterInit { get; set; }
+    [Parameter] public EventCallback<LatLngLiteral> OnMapClick { get; set; }
+
+    private IJSObjectReference? _module;
+    private DotNetObjectReference<LeafletMap>? _selfRef;
+    private bool _initialized;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _selfRef = DotNetObjectReference.Create(this);
+        _module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/leafletInterop.js");
+
+        var center = Center ?? new LatLngLiteral(0, 0);
+        var ok = await _module.InvokeAsync<bool>("initializeMap", Id, center.Lat, center.Lng, Zoom);
+
+        if (!ok) return;
+
+        _initialized = true;
+
+        if (OnMapClick.HasDelegate)
+            await _module.InvokeVoidAsync("onMapClick", _selfRef, nameof(HandleMapClick));
+
+        if (OnAfterInit.HasDelegate)
+            await OnAfterInit.InvokeAsync();
+    }
+
+    [JSInvokable]
+    public async Task HandleMapClick(double lat, double lng)
+    {
+        if (OnMapClick.HasDelegate)
+            await OnMapClick.InvokeAsync(new LatLngLiteral(lat, lng));
+    }
+
+    public async Task SetCenter(LatLngLiteral position, int? zoom = null)
+    {
+        if (!_initialized || _module == null) return;
+        await _module.InvokeVoidAsync("setCenter", position.Lat, position.Lng, zoom);
+    }
+
+    public async Task AddOrUpdateMarker(string key, LatLngLiteral position, string? iconHtml = null)
+    {
+        if (!_initialized || _module == null) return;
+        await _module.InvokeVoidAsync("addMarker", key, position.Lat, position.Lng, iconHtml);
+    }
+
+    public async Task RemoveMarker(string key)
+    {
+        if (_module == null) return;
+        await _module.InvokeVoidAsync("removeMarker", key);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module != null)
+        {
+            try
+            {
+                await _module.InvokeVoidAsync("dispose");
+            }
+            catch
+            {
+                /* ignorar errores al limpiar */
+            }
+
+            try
+            {
+                await _module.DisposeAsync();
+            }
+            catch
+            {
+                /* ignorar errores al limpiar */
+            }
+        }
+
+        _selfRef?.Dispose();
+    }
+}
