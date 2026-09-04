@@ -18,7 +18,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.x
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -38,7 +38,7 @@ jobs:
       - name: Publish Android AAB
         run: >
           dotnet publish ./DhahabiDelivery/DhahabiDelivery.csproj
-          -f net8.0-android34.0 -c Release
+          -f net9.0-android35.0 -c Release
           -p:AndroidPackageFormat=aab
           -p:AndroidKeyStore=true
           -p:AndroidSigningKeyStore=${{ github.workspace }}/dhahabi-delivery.keystore
@@ -50,7 +50,7 @@ jobs:
       - name: Publish Android APK
         run: >
           dotnet publish ./DhahabiDelivery/DhahabiDelivery.csproj
-          -f net8.0-android34.0 -c Release
+          -f net9.0-android35.0 -c Release
           -p:AndroidPackageFormat=apk
           -p:AndroidKeyStore=true
           -p:AndroidSigningKeyStore=${{ github.workspace }}/dhahabi-delivery.keystore

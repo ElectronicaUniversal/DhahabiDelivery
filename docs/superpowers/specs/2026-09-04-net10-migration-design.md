@@ -58,3 +58,28 @@ dhahabi-net10-migration/
 
 - No se toca `BusinessPlaceClient`/`FrontentHybrid` (siguen en .NET 9).
 - No se instala nada system-wide en el VPS.
+
+## Resultado (2026-09-04)
+
+`net10.0-android36.0` compila y publica sin problema para una sola
+arquitectura (paquetes `ZXing.Net.Maui`, `Pushy.SDK.MAUI.Android`,
+`BlazorGoogleMaps`, `Dhahabi.ViewModel` etc. son compatibles sin cambios de
+código). Pero el publish multi-RID (4 arquitecturas en un solo build, lo que
+usa el workflow para generar el AAB/APK de release) falla con **NU1102**:
+NuGet intenta restaurar `Microsoft.NETCore.App.Runtime.Mono.linux-x64`
+versión `10.0.11`, paquete que Microsoft nunca publicó en nuget.org. Es un
+bug confirmado y sin resolver en el SDK/workload de .NET 10
+([dotnet/maui#27215](https://github.com/dotnet/maui/issues/27215),
+reproducido en .NET 10 según el comentario más reciente del hilo). El
+workaround documentado (`UseMonoRuntime=false`, runtime CoreCLR experimental
+para Android) solo soporta arquitecturas de 64 bits y además falla con un
+segundo error (`XA0035`) en el publish multi-RID con el SDK 10.0.400 actual.
+
+**Decisión:** migrar a **.NET 9** (`net9.0-android35.0`) en vez de .NET 10.
+Verificado en el VPS: publish multi-RID (4 arquitecturas) funciona limpio,
+produce un AAB firmado de ~42MB con las 4 ABIs (`arm64-v8a`, `armeabi-v7a`,
+`x86`, `x86_64`). `global.json`, `DhahabiDelivery.csproj` y
+`.github/workflows/android-release.yml` actualizados a net9. La migración a
+.NET 10 queda pendiente hasta que Microsoft resuelva el bug de arriba — el
+toolchain de .NET 10 instalado en el VPS (`dotnet10/`, packs, workload) se
+deja documentado para retomar rápido cuando corresponda.
