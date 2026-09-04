@@ -44,8 +44,9 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <AndroidPackageFormat>apk</AndroidPackageFormat>
-        <PublishTrimmed>false</PublishTrimmed>
+        <PublishTrimmed>true</PublishTrimmed>
         <RunAOTCompilation>false</RunAOTCompilation>
+        <RuntimeIdentifiers>android-arm;android-arm64;android-x86;android-x64</RuntimeIdentifiers>
         <!--        <AndroidKeyStore>true</AndroidKeyStore>-->
         <!--        <AndroidSigningKeyStore>C:\Users\Adrian\RiderProjects\DhahabiDelivery\dhahabi-delivery.keystore</AndroidSigningKeyStore>-->
         <!--        <AndroidSigningStorePass>hallenkami412120</AndroidSigningStorePass>-->
