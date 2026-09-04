@@ -2,9 +2,9 @@ name: Android Release Build
 
 on:
   push:
-    branches: [ "main", "fix/delivery-app" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "fix/delivery-app" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
