@@ -67,12 +67,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: DhahabiDelivery-AAB
-          path: ./publish-aab/**/*.aab
+          path: ./publish-aab/**/*-Signed.aab
           if-no-files-found: warn
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: DhahabiDelivery-APK
-          path: ./publish-apk/**/*.apk
+          path: ./publish-apk/**/*-Signed.apk
           if-no-files-found: warn
