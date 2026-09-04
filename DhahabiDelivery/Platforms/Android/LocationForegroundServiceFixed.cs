@@ -239,7 +239,8 @@ public class LocationForegroundServiceFixed : Service, ILocationListener
             .SetForegroundServiceBehavior(NotificationCompat.ForegroundServiceImmediate)
             .SetCategory(NotificationCompat.CategoryService)
             .SetVisibility(NotificationCompat.VisibilityPublic)
-            .SetPriority(NotificationCompat.PriorityHigh);
+            .SetPriority(NotificationCompat.PriorityHigh)
+            .SetOnlyAlertOnce(true);
 
         // Agregar acción para detener el servicio
         var stopIntent = new Intent(this, typeof(LocationForegroundServiceFixed));
