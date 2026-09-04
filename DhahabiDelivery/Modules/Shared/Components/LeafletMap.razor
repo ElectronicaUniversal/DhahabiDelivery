@@ -23,7 +23,7 @@
         _selfRef = DotNetObjectReference.Create(this);
         _module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/leafletInterop.js");
 
-        var center = Center ?? new LatLngLiteral(0, 0);
+        var center = Center ?? new LatLngLiteral(0d, 0d);
         var ok = await _module.InvokeAsync<bool>("initializeMap", Id, center.Lat, center.Lng, Zoom);
 
         if (!ok) return;
