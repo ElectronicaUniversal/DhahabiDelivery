@@ -61,12 +61,47 @@
         }
     </button>
 
+    <!-- Separador -->
+    <div class="flex items-center gap-3 w-full max-w-md my-6">
+        <div class="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
+        <span class="text-gray-500 dark:text-gray-400 text-sm">o</span>
+        <div class="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
+    </div>
+
+    <!-- Entrada manual del número de orden -->
+    <form @onsubmit="DoManualSearch" class="w-full max-w-md flex flex-col gap-3">
+        <label for="manual-order-id" class="text-sm text-gray-600 dark:text-gray-300">
+            Introduce el número de orden manualmente
+        </label>
+        <div class="flex gap-2">
+            <input id="manual-order-id"
+                   type="text"
+                   inputmode="numeric"
+                   placeholder="Ej. 54144"
+                   @bind="_manualOrderId"
+                   @bind:event="oninput"
+                   class="flex-1 px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-white focus:ring-4 focus:ring-violet-300 focus:outline-none"/>
+            <button type="submit"
+                    disabled="@(string.IsNullOrWhiteSpace(_manualOrderId))"
+                    class="inline-flex items-center justify-center px-5 py-3 text-white bg-violet-600 hover:bg-violet-700 focus:ring-4 focus:ring-violet-300 font-medium rounded-2xl shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                Buscar
+            </button>
+        </div>
+    </form>
+
 </div>
 
 @code
 {
     private bool _isLoading;
     private string _error = "";
+    private string _manualOrderId = "";
+
+    private void DoManualSearch()
+    {
+        if (string.IsNullOrWhiteSpace(_manualOrderId)) return;
+        NavigationManager.NavigateTo($"{Pages.ScannerResult}?OrderId={Uri.EscapeDataString(_manualOrderId.Trim())}");
+    }
 
     private async Task DoScanAsync()
     {
