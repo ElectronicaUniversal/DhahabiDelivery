@@ -1,0 +1,78 @@
+name: Android Release Build
+
+on:
+  push:
+    branches: [ "main", "fix/delivery-app" ]
+  pull_request:
+    branches: [ "main", "fix/delivery-app" ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+
+      - name: Install .NET MAUI Workloads
+        run: dotnet workload restore ./DhahabiDelivery/DhahabiDelivery.csproj
+
+      - name: Restore dependencies
+        run: dotnet restore ./DhahabiDelivery/DhahabiDelivery.csproj
+
+      - name: Decode Android keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > ./dhahabi-delivery.keystore
+
+      - name: Publish Android AAB
+        run: >
+          dotnet publish ./DhahabiDelivery/DhahabiDelivery.csproj
+          -f net8.0-android34.0 -c Release
+          -p:AndroidPackageFormat=aab
+          -p:AndroidKeyStore=true
+          -p:AndroidSigningKeyStore=${{ github.workspace }}/dhahabi-delivery.keystore
+          -p:AndroidSigningStorePass=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          -p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          -p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }}
+          -o ./publish-aab /p:TreatWarningsAsErrors=false
+
+      - name: Publish Android APK
+        run: >
+          dotnet publish ./DhahabiDelivery/DhahabiDelivery.csproj
+          -f net8.0-android34.0 -c Release
+          -p:AndroidPackageFormat=apk
+          -p:AndroidKeyStore=true
+          -p:AndroidSigningKeyStore=${{ github.workspace }}/dhahabi-delivery.keystore
+          -p:AndroidSigningStorePass=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          -p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          -p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }}
+          -o ./publish-apk /p:TreatWarningsAsErrors=false
+
+      - name: Remove keystore from runner
+        if: always()
+        run: rm -f ./dhahabi-delivery.keystore
+
+      - name: Upload AAB Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DhahabiDelivery-AAB
+          path: ./publish-aab/**/*.aab
+          if-no-files-found: warn
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DhahabiDelivery-APK
+          path: ./publish-apk/**/*.apk
+          if-no-files-found: warn
