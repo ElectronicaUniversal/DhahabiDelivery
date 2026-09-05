@@ -16,6 +16,7 @@ public static class ServiceConfiguration
     public static void ConfigureServices(this IServiceCollection services, AppSettings? config)
     {
         services.AddScoped<IStorageService, StorageService>();
+        services.AddScoped<IThemeService, ThemeService>();
         AddHttpClients(services, config);
         services.AddLocalization();
         if (config != null) services.AddSingleton(config);
