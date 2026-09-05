@@ -3,7 +3,9 @@
 @using DhahabiDelivery.Modules.Auth.Pages
 @using DhahabiDelivery.Modules.Entregas.Pages
 @using DhahabiDelivery.Modules.Layout
+@using DhahabiDelivery.Modules.Shared.Services
 @using Microsoft.AspNetCore.Components.Authorization
+@inject IThemeService ThemeService
 <CascadingAuthenticationState>
     <ViewTransitionRouter AppAssembly="@typeof(MauiProgram).Assembly"
                           AdditionalAssemblies="new[] { typeof(PaginaEntregas).Assembly }">
@@ -25,3 +27,13 @@
         </NotFound>
     </ViewTransitionRouter>
 </CascadingAuthenticationState>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await ThemeService.ApplyStoredThemeAsync();
+        }
+    }
+}
