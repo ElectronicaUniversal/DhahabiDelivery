@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
     --background: #f4f4f4;
     --text: #130a37;
@@ -40,19 +42,17 @@
     --skeleton-animation-duration: 1.5s;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #181818;
-        --text: #e0e0e0;
-        --card-background: #1f1f23;
-        --surface: #292929;
-        --primary: #9f7af7;
-        --primary-dark: #a383f8;
-        --primary-light: rgba(159, 122, 247, 0.15);
-        --accent: #ff6467;
-        --divider: #303030;
-        --color-primary-rgb: 159, 122, 247;
-    }
+:root.dark {
+    --background: #181818;
+    --text: #e0e0e0;
+    --card-background: #1f1f23;
+    --surface: #292929;
+    --primary: #9f7af7;
+    --primary-dark: #a383f8;
+    --primary-light: rgba(159, 122, 247, 0.15);
+    --accent: #ff6467;
+    --divider: #303030;
+    --color-primary-rgb: 159, 122, 247;
 }
 
 
