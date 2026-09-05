@@ -182,6 +182,7 @@ public partial class ScannerResult
                 return;
             }
 
+            ViewModel.EntregaSeleccionada = _matchedOrder;
             await ViewModel.FinalizarEntrega();
             _processingComplete = true;
             _loadingCompletarOrden = LoadingButton.State.Success;
