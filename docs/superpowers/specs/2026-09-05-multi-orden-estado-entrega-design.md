@@ -73,6 +73,8 @@ Ninguno de los handlers tocados tiene tests hoy. Dado que esta es lógica de neg
 
 ## Rollout (punto 4 del backlog)
 
-El usuario no es el mantenedor principal de `BusinessPlaceServer`. El trabajo de backend va en una rama nueva basada en `origin/dev` (no directo a `dev`) para que el mantenedor real la revise. Ya existe una rama local `fix/delivery-app` (creada 2026-01-26, sin commits, idéntica a `origin/dev`, sin push) que puede usarse para este trabajo en vez de crear una rama adicional.
+El usuario no es el mantenedor principal de `BusinessPlaceServer`. El trabajo de backend va en una rama nueva, no directo a la rama de integración. La rama local `fix/delivery-app` (creada 2026-01-26, originalmente basada en `origin/dev`) se rebaseó sobre `origin/dev-stripe` — resultó ser la rama realmente activa del repo (`origin/dev` estaba desactualizada desde 2026-01-26; `dev-stripe` la contiene por completo más 70 commits, sin conflicto con los archivos de esta feature).
+
+La estrategia final de merge/deploy está en definición (rama `deploy` con CI de auto-deploy — ver punto 5 del backlog en WORKFLOW.md) y se resuelve en una conversación aparte antes del push/PR; el trabajo de código de este spec no depende de esa decisión.
 
 El cliente (`DhahabiDelivery`) sigue el flujo normal del repo (el usuario sí es mantenedor ahí).
