@@ -31,9 +31,15 @@
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (!firstRender) return;
+
+        try
         {
             await ThemeService.ApplyStoredThemeAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error applying stored theme: {ex.Message}");
         }
     }
 }
