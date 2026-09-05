@@ -19,7 +19,7 @@ public class RepartidorServiceMock(
         return ConstantesEstadoRepartidor.ENTREGANDO;
     }
 
-    public async Task<string> FinalizarEntrega()
+    public async Task<string> FinalizarEntrega(int idOrden)
     {
         await Task.Delay(1000);
         _estado = ConstantesEstadoRepartidor.DISPONIBLE;

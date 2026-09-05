@@ -12,7 +12,7 @@ public class RepartidorService(
 {
     public async Task<string> IniciarEntrega(EntregaResumen ordenAsignada)
     {
-        var req = new EstablecerEstadoRepartidorRequest(ConstantesEstadoRepartidor.ENTREGANDO);
+        var req = new EstablecerEstadoRepartidorRequest(ConstantesEstadoRepartidor.ENTREGANDO, IdOrden: ordenAsignada.Id);
         var config =
             new HttpHelper.HttpHelperConfig(Apis.AgentesCommand.Name, Apis.AgentesCommand.EstablecerEstadoRepartidor);
         var res = await httpHelper
@@ -20,9 +20,9 @@ public class RepartidorService(
         return res.EstadoRepartidor;
     }
 
-    public async Task<string> FinalizarEntrega()
+    public async Task<string> FinalizarEntrega(int idOrden)
     {
-        var req = new EstablecerEstadoRepartidorRequest(ConstantesEstadoRepartidor.DISPONIBLE);
+        var req = new EstablecerEstadoRepartidorRequest(ConstantesEstadoRepartidor.DISPONIBLE, IdOrden: idOrden);
         var config =
             new HttpHelper.HttpHelperConfig(Apis.AgentesCommand.Name, Apis.AgentesCommand.EstablecerEstadoRepartidor);
         var res = await httpHelper
