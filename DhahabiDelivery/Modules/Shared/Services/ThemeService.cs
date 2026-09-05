@@ -4,11 +4,11 @@ namespace DhahabiDelivery.Modules.Shared.Services;
 
 public class ThemeService(IJSRuntime jsRuntime) : IThemeService, IAsyncDisposable
 {
-    private IJSObjectReference? _module;
+    private Task<IJSObjectReference>? _modulePromise;
 
-    private async Task<IJSObjectReference> GetModuleAsync()
+    private Task<IJSObjectReference> GetModuleAsync()
     {
-        return _module ??= await jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/theme.js");
+        return _modulePromise ??= jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/theme.js").AsTask();
     }
 
     public async Task<bool> GetIsDarkAsync()
@@ -31,6 +31,10 @@ public class ThemeService(IJSRuntime jsRuntime) : IThemeService, IAsyncDisposabl
 
     public async ValueTask DisposeAsync()
     {
-        if (_module != null) await _module.DisposeAsync();
+        if (_modulePromise != null)
+        {
+            var module = await _modulePromise;
+            await module.DisposeAsync();
+        }
     }
 }
