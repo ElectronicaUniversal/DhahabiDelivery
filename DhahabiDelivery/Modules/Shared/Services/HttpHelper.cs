@@ -46,7 +46,15 @@ public class HttpHelper(AuthService authService, IHttpClientFactory httpClientFa
             response = await client.PostAsJsonAsync(config.Url, request, cancellationToken);
         }
 
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new HttpRequestException(
+                string.IsNullOrWhiteSpace(errorBody) ? $"Error {(int)response.StatusCode} ({response.StatusCode})" : errorBody,
+                null,
+                response.StatusCode);
+        }
+
         var responseString = await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken);
         if (responseString == null) throw new InvalidOperationException("El contenido de la respuesta es nulo.");
 
