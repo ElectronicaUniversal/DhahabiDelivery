@@ -135,6 +135,16 @@
             }
 
             if (estado != ConstantesEstadoRepartidor.ASIGNADO && estado != ConstantesEstadoRepartidor.DISPONIBLE) return;
+
+            if (ViewModel.EntregaSeleccionada != null && ViewModel.TieneOtraEntregaEnCamino(ViewModel.EntregaSeleccionada))
+            {
+                _error = true;
+                _errorMessage = "Ya tienes una entrega en camino. Complétala antes de iniciar otra.";
+                _dialogTitle = "Ha ocurrido un error";
+                await _dialogRef.Open();
+                return;
+            }
+
             await ViewModel.IniciarEntrega();
             _loadingButtonState = LoadingButton.State.Success;
         }
