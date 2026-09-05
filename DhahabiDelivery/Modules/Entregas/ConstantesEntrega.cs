@@ -8,3 +8,8 @@ public static class ConstantesEstadoRepartidor
     public const string ASIGNADO = "A";
     public const string ORDER_ASIGNED_KEY = "llave_orden_asignada";
 }
+
+public static class ConstantesEstadoEnvio
+{
+    public const string ENCAMINO = "En camino";
+}

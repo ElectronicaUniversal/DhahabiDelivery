@@ -193,7 +193,9 @@ public partial class EntregasViewModel(
             // No permitir finalizar la entrega si no está en estado "E"
             return;
 
-        var state = await repartidorService.FinalizarEntrega();
+        if (EntregaSeleccionada == null) return;
+
+        var state = await repartidorService.FinalizarEntrega(EntregaSeleccionada.Id);
         EntregaSeleccionada = null;
         EntregasAsignadas = [];
         storageService.Remove(ConstantesEstadoRepartidor.ORDER_ASIGNED_KEY);
@@ -204,6 +206,10 @@ public partial class EntregasViewModel(
         await locationService.UpdateDeliveryStateAsync(state);
         Console.WriteLine($"✅ Entrega finalizada - Estado: {state}");
     }
+
+    // Verdadero si alguna otra entrega asignada (distinta a la que se le pasa) ya está en camino.
+    public bool TieneOtraEntregaEnCamino(EntregaResumen entrega) =>
+        EntregasAsignadas.Any(e => e.Id != entrega.Id && e.EstadoEnvio == ConstantesEstadoEnvio.ENCAMINO);
 
     public async Task CambiarDisponibilidadAsync(bool disponible)
     {
