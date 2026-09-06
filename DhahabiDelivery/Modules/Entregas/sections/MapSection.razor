@@ -45,7 +45,7 @@
                         }
                         else
                         {
-                            @(ViewModel.State != ConstantesEstadoRepartidor.ENTREGANDO ? "Iniciar" : "Finalizar")
+                            @(ViewModel.EntregaSeleccionada?.EstadoEnvio == ConstantesEstadoEnvio.ENCAMINO ? "Finalizar" : "Iniciar")
                         }
                     </LoadingButton>
                 </div>
@@ -130,7 +130,19 @@
             var estado = await ViewModel.ObtenerEstadoRepartidorAsync();
             if (estado == ConstantesEstadoRepartidor.ENTREGANDO)
             {
-                await ShowFinalizarEntregaDialog();
+                // El repartidor tiene una entrega en camino, pero puede no ser la que se está viendo
+                // ahora mismo: solo se ofrece "Finalizar" para la orden que realmente está en camino.
+                if (ViewModel.EntregaSeleccionada?.EstadoEnvio == ConstantesEstadoEnvio.ENCAMINO)
+                {
+                    await ShowFinalizarEntregaDialog();
+                }
+                else
+                {
+                    _error = true;
+                    _errorMessage = "Ya tienes una entrega en camino. Complétala antes de iniciar otra.";
+                    _dialogTitle = "Ha ocurrido un error";
+                    await _dialogRef.Open();
+                }
                 return;
             }
 

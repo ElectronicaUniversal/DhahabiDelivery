@@ -156,8 +156,12 @@ public partial class EntregasViewModel(
         CancellationToken cancellationToken = default)
     {
         var estado = await repartidorService.ObtenerEstadoRepartidor();
-        if (estado is ConstantesEstadoRepartidor.ASIGNADO or ConstantesEstadoRepartidor.DISPONIBLE
-            or ConstantesEstadoRepartidor.ENTREGANDO) await CambiarDisponibilidadAsync(true);
+        // No forzar disponibilidad si ya hay una entrega en camino: EstablecerEstadoRepartidor(DISPONIBLE)
+        // sin IdOrden usa la búsqueda legada por "Procesando", que con múltiples órdenes activas es
+        // ambigua y el backend la interpreta como "el repartidor terminó la entrega", completando
+        // silenciosamente una orden al azar (ver docs/superpowers/plans/2026-09-05-multi-orden-estado-entrega.md).
+        if (estado is ConstantesEstadoRepartidor.ASIGNADO or ConstantesEstadoRepartidor.DISPONIBLE)
+            await CambiarDisponibilidadAsync(true);
         return estado;
     }
 
