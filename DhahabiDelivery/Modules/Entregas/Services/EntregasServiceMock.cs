@@ -20,7 +20,7 @@ public class EntregasServiceMock(HttpHelper httpHelper) : IEntregasService
         var entrega = new EntregaResumen([producto], "CUP", "CASH", [vendedor], 3, 0, 0, "53234234234", 5,
             "pepito el flaquito",
             "imagenCliente",
-            "direccionCliente", "21.2312123, 12.32131234");
+            "direccionCliente", "21.2312123, 12.32131234", ConstantesEstadoEnvio.ENCAMINO);
         return Task.FromResult<EntregaResumen[]>([entrega]);
     }
 }
