@@ -60,3 +60,22 @@ jobs:
           name: DhahabiDelivery-APK
           path: ./publish-apk/**/*-Signed.apk
           if-no-files-found: warn
+
+      # Publica el APK en cdn.dhahabi.ae (descarga pública real para usuarios).
+      # Solo corre cuando el workflow se dispara manualmente (Run workflow en GitHub
+      # Actions), nunca en un push normal a fix/delivery-app -- esa rama se usa para
+      # iterar y probar cosas, y un push de prueba no debe sobreescribir lo que
+      # descargan usuarios reales.
+      - name: Publicar APK en cdn.dhahabi.ae
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          APK_PATH=$(find ./publish-apk -name "*-Signed.apk" | head -1)
+          if [ -z "$APK_PATH" ]; then
+            echo "::error::No se encontró el APK firmado en ./publish-apk"
+            exit 1
+          fi
+          docker cp "$APK_PATH" minio-minio-1:/tmp/Dhahabi.apk
+          docker exec minio-minio-1 mc alias set local http://localhost:9000 minio "${{ secrets.MINIO_ROOT_PASSWORD }}"
+          docker exec minio-minio-1 mc cp /tmp/Dhahabi.apk local/apk/android/Dhahabi.apk
+          docker exec minio-minio-1 rm /tmp/Dhahabi.apk
+          echo "APK publicado en https://cdn.dhahabi.ae/apk/android/Dhahabi.apk"
