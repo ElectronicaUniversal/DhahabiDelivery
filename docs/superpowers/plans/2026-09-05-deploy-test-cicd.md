@@ -20,11 +20,11 @@
 
 **Por qué es manual:** registrar un runner self-hosted requiere un token de registro que solo se puede generar con permisos de **admin** sobre el repo. La cuenta de GitHub autenticada en esta sesión (`gh auth status`) tiene `push`/`pull`/`triage` sobre `ElectronicaUniversal/BusinessPlaceServer` pero no `admin` — no puede generarlo vía `gh api`. Este paso lo tiene que hacer quien sí tenga admin sobre el repo.
 
-- [ ] **Step 1: Generar el token desde la UI de GitHub**
+- [x] **Step 1: Generar el token desde la UI de GitHub**
 
 Ir a `https://github.com/ElectronicaUniversal/BusinessPlaceServer/settings/actions/runners/new`, elegir **Linux** / **x64**. GitHub muestra un comando `./config.sh --url ... --token AAAAAAAAAAAAAAAAAAAAAAAAAAAAA` — copiar solo el valor del token (empieza con `A`, ~29-30 caracteres). El token expira en ~1 hora, así que generarlo justo antes del Task 2.
 
-- [ ] **Step 2: Pasar el token a quien ejecuta el Task 2**
+- [x] **Step 2: Pasar el token a quien ejecuta el Task 2**
 
 El token generado en el Step 1 se usa directamente en el `config.sh` del Task 2, Step 4 — no se guarda en ningún archivo del repo ni se commitea en ningún lado.
 
@@ -34,13 +34,13 @@ El token generado en el Step 1 se usa directamente en el `config.sh` del Task 2,
 
 **Requiere:** el token del Task 1 (fresco, generado en la última hora).
 
-- [ ] **Step 1: Crear el directorio del runner**
+- [x] **Step 1: Crear el directorio del runner**
 
 ```bash
 ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae 'mkdir -p ~/actions-runner-bp'
 ```
 
-- [ ] **Step 2: Resolver la última versión del runner y descargarlo**
+- [x] **Step 2: Resolver la última versión del runner y descargarlo**
 
 ```bash
 ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae '
@@ -54,11 +54,11 @@ tar xzf actions-runner-linux-x64.tar.gz
 
 Expected: termina sin error, `ls ~/actions-runner-bp` muestra `config.sh`, `run.sh`, `bin/`, etc.
 
-- [ ] **Step 3: Verificar arquitectura del VPS coincide con el paquete descargado**
+- [x] **Step 3: Verificar arquitectura del VPS coincide con el paquete descargado**
 
 Ya confirmado en la investigación previa: `uname -m` → `x86_64`, coincide con `linux-x64`. No hace falta reverificar, solo dejarlo anotado por si se repite este proceso en otra máquina.
 
-- [ ] **Step 4: Configurar el runner (usar el token del Task 1)**
+- [x] **Step 4: Configurar el runner (usar el token del Task 1)**
 
 ```bash
 ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae '
@@ -71,7 +71,7 @@ Expected: termina con `√ Connected to GitHub` y `√ Runner successfully added
 
 Si el token expiró (más de ~1 hora desde que se generó), este comando falla con `Http response code: NotFound` o similar — volver al Task 1 y generar uno nuevo.
 
-- [ ] **Step 5: Instalar y arrancar como servicio systemd**
+- [x] **Step 5: Instalar y arrancar como servicio systemd**
 
 ```bash
 ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae '
@@ -84,7 +84,7 @@ sudo ./svc.sh status
 
 Expected: el status muestra `active (running)`.
 
-- [ ] **Step 6: Confirmar que el runner aparece "Idle" en GitHub**
+- [x] **Step 6: Confirmar que el runner aparece "Idle" en GitHub**
 
 ```bash
 gh api repos/ElectronicaUniversal/BusinessPlaceServer/actions/runners --jq '.runners[] | {name, status, labels: [.labels[].name]}'
@@ -99,7 +99,7 @@ Expected: un runner con `"name": "dhahabi-vps-bp"`, `"status": "online"`, labels
 **Files:**
 - Create: `BusinessPlaceServer/.github/workflows/deploy-test.yml`
 
-- [ ] **Step 1: Escribir el workflow**
+- [x] **Step 1: Escribir el workflow**
 
 Crear `.github/workflows/deploy-test.yml`:
 
@@ -149,7 +149,7 @@ jobs:
           echo "Los 17 contenedores del stack de test están Up."
 ```
 
-- [ ] **Step 2: Verificar la sintaxis YAML localmente**
+- [x] **Step 2: Verificar la sintaxis YAML localmente**
 
 ```bash
 cd /home/hallen/Dhahabi/BusinessPlaceServer
@@ -158,7 +158,7 @@ python3 -c "import yaml; yaml.safe_load(open('.github/workflows/deploy-test.yml'
 
 Expected: `YAML válido` (sin excepción de parseo).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add .github/workflows/deploy-test.yml
@@ -171,7 +171,7 @@ git commit -m "Agregar workflow de CI para el stack de test (rama deploy-test)"
 
 **Requiere:** Task 2 (runner activo) y Task 3 (workflow commiteado) completos. Requiere también que `sqlserver-docker` esté corriendo — si el Task 5 (reactivarla) todavía no se hizo, este task va a fallar en el pre-check del workflow a propósito (eso confirma que el pre-check funciona) — hacer el Task 5 antes de este si se quiere ver el flujo completo en verde la primera vez.
 
-- [ ] **Step 1: Crear y pushear la rama**
+- [x] **Step 1: Crear y pushear la rama**
 
 ```bash
 cd /home/hallen/Dhahabi/BusinessPlaceServer
@@ -181,7 +181,7 @@ git push -u origin deploy-test
 
 Expected: push exitoso, GitHub dispara el workflow automáticamente (visible en Actions del repo).
 
-- [ ] **Step 2: Seguir la corrida**
+- [x] **Step 2: Seguir la corrida**
 
 ```bash
 gh run list --repo ElectronicaUniversal/BusinessPlaceServer --branch deploy-test --limit 1
@@ -190,7 +190,7 @@ gh run watch $(gh run list --repo ElectronicaUniversal/BusinessPlaceServer --bra
 
 Expected: los tres steps (pre-check DB, build-test.sh, post-check contenedores) en verde. Si el pre-check falla porque `sqlserver-docker` no está arriba, es el comportamiento esperado si el Task 5 no se hizo todavía — no es un bug del workflow.
 
-- [ ] **Step 3: Volver a `fix/delivery-app` en el checkout local**
+- [x] **Step 3: Volver a `fix/delivery-app` en el checkout local**
 
 ```bash
 git checkout fix/delivery-app
@@ -202,13 +202,13 @@ git checkout fix/delivery-app
 
 ## Task 5: Reactivar `sqlserver-docker` (manual, una sola vez)
 
-- [ ] **Step 1: Arrancar el contenedor**
+- [x] **Step 1: Arrancar el contenedor**
 
 ```bash
 ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae 'docker start sqlserver-docker'
 ```
 
-- [ ] **Step 2: Confirmar que arrancó bien**
+- [x] **Step 2: Confirmar que arrancó bien**
 
 ```bash
 ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae 'docker logs sqlserver-docker --tail 20'
@@ -216,7 +216,7 @@ ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae 'docker logs sqlserver-docker --
 
 Expected: última línea del estilo `SQL Server is now ready for client connections`, sin errores de arranque.
 
-- [ ] **Step 3: Verificar que responde y ver qué schema/datos tiene**
+- [x] **Step 3: Verificar que responde y ver qué schema/datos tiene**
 
 ```bash
 ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae "docker exec sqlserver-docker /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Liso12345*' -C -Q \"SELECT name FROM sys.databases\" -W"
@@ -224,7 +224,7 @@ ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae "docker exec sqlserver-docker /o
 
 Expected: la lista incluye `BPDatabase`. Si no aparece, hay que restaurar el schema/datos ahí — fuera de alcance de este plan (ver spec, sección "Fuera de alcance"); reportar el hallazgo antes de seguir.
 
-- [ ] **Step 4: Si `BPDatabase` existe, verificar que tiene las tablas relevantes**
+- [x] **Step 4: Si `BPDatabase` existe, verificar que tiene las tablas relevantes**
 
 ```bash
 ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae "docker exec sqlserver-docker /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Liso12345*' -C -Q \"USE BPDatabase; SELECT COUNT(*) AS Repartidores FROM BP_AGENTES.REPARTIDOR; SELECT COUNT(*) AS Ordenes FROM BP_VENTAS.ORDEN;\" -W"
@@ -241,7 +241,7 @@ No hay commit en este task — es un cambio de estado en el VPS, no de código.
 **Files:**
 - Create: `DhahabiDelivery/Configuration/AppSettings.test.json`
 
-- [ ] **Step 1: Crear el archivo**
+- [x] **Step 1: Crear el archivo**
 
 Mismo contenido que `DhahabiDelivery/Configuration/AppSettings.json`, agregando el sufijo `test` a cada segmento de path (no al dominio, no al `ImageServer` que no tiene equivalente de test). Ojo con `Catalogo`: en el original apunta a `.../catalogoquery/` (es la ruta *query*, a pesar de que la clave no lo dice) — el equivalente de test es `catalogoquerytest`, no `catalogocommandtest`:
 
@@ -265,7 +265,7 @@ Mismo contenido que `DhahabiDelivery/Configuration/AppSettings.json`, agregando 
 }
 ```
 
-- [ ] **Step 2: Verificar que cada URL tiene una ruta nginx real correspondiente en el VPS**
+- [x] **Step 2: Verificar que cada URL tiene una ruta nginx real correspondiente en el VPS**
 
 ```bash
 ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae 'grep -oP "location /\K[a-z]+test(?=/)" /etc/nginx/conf.d/api.dhahabi.ae.conf | sort -u'
@@ -273,7 +273,7 @@ ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae 'grep -oP "location /\K[a-z]+tes
 
 Expected: la lista incluye `ventascommandtest`, `ventasquerytest`, `autenticacionquerytest`, `catalogoquerytest`, `pagoscommandtest`, `pagoscubacommandtest`, `pagosquerytest`, `clientesquerytest`, `generalesquerytest`, `generalescommandtest`, `promocionesquerytest`, `agentesquerytest`, `agentescommandtest`. Si falta `autenticacioncommandtest` o `clientescommandtest` en esa lista pero el archivo los referencia, anotarlo — puede que esos dos servicios no tengan variante de comando en `AppSettings.json` original tampoco (confirmar contra el original antes de asumir que es un error).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd /home/hallen/Dhahabi/DhahabiDelivery
@@ -288,7 +288,7 @@ git commit -m "Agregar AppSettings.test.json para apuntar builds ad-hoc al stack
 **Files:**
 - Modify: `WORKFLOW.md`
 
-- [ ] **Step 1: Agregar una sección nueva describiendo el flujo de test**
+- [x] **Step 1: Agregar una sección nueva describiendo el flujo de test**
 
 Agregar, después de la sección "Cómo hacer y probar un cambio (runbook)":
 
@@ -303,7 +303,7 @@ Agregar, después de la sección "Cómo hacer y probar un cambio (runbook)":
 6. Runner: `ssh -p 33 -i ~/.ssh/dhahabi dhahabi3@dhahabi.ae 'sudo systemctl status actions.runner.ElectronicaUniversal-BusinessPlaceServer.dhahabi-vps-bp'` para revisar su estado si algo no dispara.
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add WORKFLOW.md
