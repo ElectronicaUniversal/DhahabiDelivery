@@ -176,10 +176,16 @@ public partial class EntregasViewModel(
             throw new GpsNotEnabledException("El GPS debe estar activado para iniciar una entrega. " +
                                              "Por favor activa el GPS desde la configuración del dispositivo y vuelve a intentarlo.");
 
+        var idOrdenIniciada = EntregaSeleccionada.Id;
         var state = await repartidorService.IniciarEntrega(EntregaSeleccionada);
         storageService.SetAsync(ConstantesEstadoRepartidor.ORDER_ASIGNED_KEY, EntregaSeleccionada);
         authService.SetDeliveryStateAsync(state);
         State = state;
+
+        // Refrescar la lista para que EntregaSeleccionada.EstadoEnvio refleje "En camino"
+        // (el objeto es inmutable, así que hay que volver a pedirlo en vez de mutarlo).
+        await ObtenerEntregasAsignadasAsync();
+        EntregaSeleccionada = EntregasAsignadas.FirstOrDefault(e => e.Id == idOrdenIniciada) ?? EntregaSeleccionada;
 
         // Actualizar el estado en el servicio de ubicación
         await locationService.UpdateDeliveryStateAsync(state);
